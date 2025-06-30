@@ -1,10 +1,14 @@
 package com.focusbuddy.controllers;
 
 import com.focusbuddy.models.Note;
+import com.focusbuddy.models.Subject;
 import com.focusbuddy.models.notes.*;
 import com.focusbuddy.services.NotesService;
+import com.focusbuddy.services.SubjectService;
 import com.focusbuddy.utils.NotificationManager;
 import com.focusbuddy.utils.UserSession;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -49,6 +53,17 @@ public class NotesController {
         loadNotes();
     }
     
+    private String getSubjectNameById(int subjectId) {
+        int userId = UserSession.getInstance().getCurrentUser().getId();
+        List<Subject> subjects = subjectService.getSubjectsForUser(userId);
+        for (Subject subject : subjects) {
+            if (subject.getId() == subjectId) {
+                return subject.getName();
+            }
+        }
+        return "Unknown";
+    }
+
     private void setupNotesList() {
         notesList.setCellFactory(listView -> new ListCell<Note>() {
             @Override

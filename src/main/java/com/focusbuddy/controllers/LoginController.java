@@ -1,7 +1,7 @@
 package com.focusbuddy.controllers;
 
 import com.focusbuddy.database.DatabaseManager;
-import com.focusbuddy.models.Mahasiswa;
+import com.focusbuddy.models.User;
 import com.focusbuddy.utils.ThemeManager;
 import com.focusbuddy.utils.UserSession;
 import javafx.fxml.FXML;
@@ -106,11 +106,12 @@ public class LoginController {
 
                 if (passwordValid) {
                     // Create user object
-                    Mahasiswa user = new Mahasiswa();
+                    User user = new User();
                     user.setId(rs.getInt("id"));
                     user.setUsername(rs.getString("username"));
                     user.setEmail(rs.getString("email"));
-                    user.setFullName(rs.getString("full_name"));
+                    user.setLevel(rs.getInt("level"));
+                    user.setTotalXp(rs.getInt("total_xp"));
 
                     // Set current user session
                     UserSession.getInstance().setCurrentUser(user);

@@ -1,7 +1,9 @@
 package com.focusbuddy.controllers;
 
+import com.focusbuddy.models.Subject;
 import com.focusbuddy.models.Task;
 import com.focusbuddy.services.TaskService;
+import com.focusbuddy.services.SubjectService;
 import com.focusbuddy.utils.NotificationManager;
 import com.focusbuddy.utils.UserSession;
 import javafx.collections.FXCollections;

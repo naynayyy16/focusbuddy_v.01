@@ -27,6 +27,9 @@ public class ValidationUtils {
     
     public static String sanitizeInput(String input) {
         if (input == null) return "";
-        return input.trim().replaceAll("[<>\"'&]", "");
+        // First remove HTML tags
+        String noTags = input.replaceAll("<[^>]*>", "");
+        // Then remove any remaining special characters
+        return noTags.trim().replaceAll("[\"'&]", "");
     }
 }

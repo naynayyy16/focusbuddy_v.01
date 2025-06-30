@@ -62,7 +62,7 @@ public class DashboardController {
         // Set welcome message
         if (UserSession.getInstance().isLoggedIn()) {
             welcomeLabel.setText("Welcome back, " +
-                    UserSession.getInstance().getCurrentUser().getFullName() + "!");
+                    UserSession.getInstance().getCurrentUser().getUsername() + "!");
         }
 
         // Store original dashboard content
