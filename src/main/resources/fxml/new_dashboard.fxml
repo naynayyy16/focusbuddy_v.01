@@ -8,8 +8,9 @@
 <BorderPane fx:id="dashboardContainer" styleClass="dashboard-container" 
             xmlns="http://javafx.com/javafx/11.0.1" 
             xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="com.focusbuddy.controllers.NewDashboardController">
+            fx:controller="com.focusbuddy.controllers.dashboard.NewDashboardController">
     
+    <!-- Rest of the content remains the same -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-container">
             <padding>

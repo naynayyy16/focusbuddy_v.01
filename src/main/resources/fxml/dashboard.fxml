@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="dashboardContainer" styleClass="dashboard-container" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.DashboardController">
+<BorderPane fx:id="dashboardContainer" styleClass="dashboard-container" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.dashboard.DashboardController">
+   <!-- Rest of the content remains the same -->
    <top>
       <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: white; -fx-padding: 15px 20px;" minHeight="60.0">
          <children>
@@ -167,11 +168,7 @@
                                     </Label>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📝 Quick Note" /> -->
                                           <Button fx:id="quickNoteBtn" maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="Catatan Cepat" contentDisplay="LEFT" />
-                                          <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="😊 Log Mood" /> -->
-                                          <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📊 View Reports" /> -->
-                                          <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="💾 Export Data" /> -->
                                        </children>
                                        <padding>
                                           <Insets top="10.0" />
