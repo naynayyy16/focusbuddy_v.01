@@ -49,6 +49,8 @@
                   
                   <TextField fx:id="tagsField" promptText="Tags (comma separated)" styleClass="custom-text-field" />
                   
+                  <ComboBox fx:id="subjectComboBox" promptText="Select Subject" styleClass="custom-text-field" />
+                  
                   <!-- Formatting Toolbar -->
                   <HBox spacing="10.0" alignment="CENTER_LEFT">
                      <children>
