@@ -195,13 +195,12 @@ public class LoginController {
             String salt = PasswordUtils.generateSalt();
             String hashedPassword = PasswordUtils.hashPassword(password, salt);
 
-            String query = "INSERT INTO users (username, password, salt, email, full_name) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-            stmt.setString(2, hashedPassword);
-            stmt.setString(3, salt);
-            stmt.setString(4, email);
-            stmt.setString(5, fullName);
+        String query = "INSERT INTO users (username, password, salt, email) VALUES (?, ?, ?, ?)";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, username);
+        stmt.setString(2, hashedPassword);
+        stmt.setString(3, salt);
+        stmt.setString(4, email);
 
             int result = stmt.executeUpdate();
             if (result > 0) {
