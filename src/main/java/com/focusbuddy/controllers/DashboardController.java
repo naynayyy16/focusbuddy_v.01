@@ -303,10 +303,10 @@ public class DashboardController {
         dashboardBtn.getStyleClass().remove("active");
         tasksBtn.getStyleClass().remove("active");
         pomodoroBtn.getStyleClass().remove("active");
-        moodBtn.getStyleClass().remove("active");
+        if (moodBtn != null) moodBtn.getStyleClass().remove("active");
         notesBtn.getStyleClass().remove("active");
-        goalsBtn.getStyleClass().remove("active");
-        exportBtn.getStyleClass().remove("active");
+        if (goalsBtn != null) goalsBtn.getStyleClass().remove("active");
+        if (exportBtn != null) exportBtn.getStyleClass().remove("active");
 
         // Add active class to current button
         activeBtn.getStyleClass().add("active");
