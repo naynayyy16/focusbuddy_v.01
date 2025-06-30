@@ -6,6 +6,8 @@ import com.focusbuddy.services.TaskService;
 import com.focusbuddy.utils.ThemeManager;
 import com.focusbuddy.utils.UserSession;
 import com.focusbuddy.utils.NotificationManager;
+import com.focusbuddy.utils.IconManager;
+import com.focusbuddy.utils.ErrorHandler;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -376,7 +378,6 @@ public class DashboardController {
             case "/fxml/dashboard.fxml" -> dashboardBtn;
             case "/fxml/new_tasks.fxml" -> tasksBtn;
             case "/fxml/notes.fxml" -> notesBtn;
-            case "/fxml/subject.fxml" -> subjectBtn;
             case "/fxml/profile_settings.fxml" -> profileBtn;
             default -> null;
         };
@@ -387,10 +388,15 @@ public class DashboardController {
             case "/fxml/dashboard.fxml" -> "dashboard";
             case "/fxml/new_tasks.fxml" -> "tasks";
             case "/fxml/notes.fxml" -> "notes";
-            case "/fxml/subject.fxml" -> "subject";
             case "/fxml/profile_settings.fxml" -> "profile";
             default -> "";
         };
+    }
+
+    private void showTasks() {
+        setActiveButton(tasksBtn);
+        currentView = "tasks";
+        loadView("/fxml/new_tasks.fxml");
     }
 
     private void showPomodoro() {
