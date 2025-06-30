@@ -126,16 +126,18 @@ public class DashboardController {
         tasksBtn.setOnAction(e -> showTasks());
         pomodoroBtn.setOnAction(e -> showPomodoro());
         // moodBtn.setOnAction(e -> showMoodTracker());
-        notesBtn.setOnAction(e -> {
-            setActiveButton(notesBtn);
-            currentView = "notes";
-            loadView("/fxml/notes.fxml");
-        });
+        notesBtn.setOnAction(e -> showNotes());
         // goalsBtn.setOnAction(e -> showGoals());
         // exportBtn.setOnAction(e -> showExport());
 
         // Set initial active button
         setActiveButton(dashboardBtn);
+    }
+
+    private void showNotes() {
+        setActiveButton(notesBtn);
+        currentView = "notes";
+        loadView("/fxml/notes.fxml");
     }
 
     private void setupThemeToggle() {
