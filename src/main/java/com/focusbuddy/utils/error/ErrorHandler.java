@@ -8,6 +8,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import com.focusbuddy.utils.notification.*;
 
 public class ErrorHandler {
     private static final Logger LOGGER = Logger.getLogger(ErrorHandler.class.getName());

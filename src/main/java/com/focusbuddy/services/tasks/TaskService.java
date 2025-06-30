@@ -1,7 +1,7 @@
 package com.focusbuddy.services.tasks;
 
 import com.focusbuddy.database.DatabaseManager;
-import com.focusbuddy.models.Task;
+import com.focusbuddy.models.tasks.*;
 
 import java.sql.*;
 import java.time.LocalDate;

@@ -1,9 +1,13 @@
 package com.focusbuddy.controllers;
 
-import com.focusbuddy.models.Task;
-import com.focusbuddy.services.PomodoroTimer;
-import com.focusbuddy.services.TaskService;
+import com.focusbuddy.models.tasks.*;
+import com.focusbuddy.services.tasks.*;
+import com.focusbuddy.services.pomodoro.*;
 import com.focusbuddy.utils.*;
+import com.focusbuddy.utils.session.UserSession;
+import com.focusbuddy.utils.notification.*;
+import com.focusbuddy.utils.error.*;
+import com.focusbuddy.utils.icon.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +20,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
+
+import java.util.List;
 
 public class NewDashboardController {
 
@@ -48,6 +54,7 @@ public class NewDashboardController {
     private TaskService taskService;
     private String currentView = "dashboard";
     private Node dashboardContent;
+    private Button activeButton;
 
     @FXML
     private void initialize() {
@@ -214,10 +221,7 @@ public class NewDashboardController {
         // Set up timer completion
         pomodoroTimer.setOnTimerComplete(() -> {
             Platform.runLater(() -> {
-                NotificationManager.getInstance().showSuccess(
-                    "Timer Selesai!",
-                    "Waktunya istirahat sejenak."
-                );
+                NotificationManager.getInstance().showSuccess("Timer Selesai! Waktunya istirahat sejenak.");
                 if (resetTimerBtn != null) {
                     resetTimerBtn.fire();
                 }
@@ -425,5 +429,13 @@ public class NewDashboardController {
             ErrorHandler.log("Error navigating to login", e);
             NotificationManager.getInstance().showError("Gagal kembali ke halaman login");
         }
+    }
+
+    public void setActiveButton(Button activeButton) {
+        this.activeButton = activeButton;
+    }
+
+    public Button getActiveButton() {
+        return activeButton;
     }
 }

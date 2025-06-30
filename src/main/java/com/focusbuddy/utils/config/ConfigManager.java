@@ -3,6 +3,8 @@ package com.focusbuddy.utils.config;
 import java.io.*;
 import java.util.Properties;
 import java.util.prefs.Preferences;
+import com.focusbuddy.utils.error.*;
+import com.focusbuddy.utils.notification.*;
 
 public class ConfigManager {
     private static ConfigManager instance;

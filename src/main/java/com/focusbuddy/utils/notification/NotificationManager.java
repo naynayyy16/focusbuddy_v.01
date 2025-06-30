@@ -30,7 +30,7 @@ public class NotificationManager {
         return instance;
     }
 
-    public void showNotification(String title, String message, NotificationType type) {
+    public static void showNotification(String title, String message, NotificationType type) {
         Platform.runLater(() -> {
             // Find the active window
             Window activeWindow = null;
@@ -78,7 +78,7 @@ public class NotificationManager {
         });
     }
 
-    private VBox createNotificationBox(String title, String message, NotificationType type) {
+    private static VBox createNotificationBox(String title, String message, NotificationType type) {
         VBox notificationBox = new VBox(5);
         notificationBox.setAlignment(Pos.CENTER);
         notificationBox.setPrefWidth(300);
@@ -133,7 +133,7 @@ public class NotificationManager {
         return notificationBox;
     }
 
-    private String getBackgroundColor(NotificationType type) {
+    private static String getBackgroundColor(NotificationType type) {
         switch (type) {
             case SUCCESS:
                 return "#4CAF50";
@@ -148,7 +148,7 @@ public class NotificationManager {
         }
     }
 
-    private String getTextColor(NotificationType type) {
+    private static String getTextColor(NotificationType type) {
         switch (type) {
             case WARNING:
                 return "#000000";
@@ -157,11 +157,11 @@ public class NotificationManager {
         }
     }
 
-    public void showSuccess(String message) {
+    public static void showSuccess(String message) {
         showNotification("Sukses", message, NotificationType.SUCCESS);
     }
 
-    public void showError(String message) {
+    public static void showError(String message) {
         showNotification("Error", message, NotificationType.ERROR);
     }
 

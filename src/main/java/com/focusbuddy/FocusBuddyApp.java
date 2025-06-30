@@ -10,6 +10,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import com.focusbuddy.utils.config.*;
+import com.focusbuddy.utils.notification.*;
+import com.focusbuddy.utils.error.*;
 
 public class FocusBuddyApp extends Application {
 

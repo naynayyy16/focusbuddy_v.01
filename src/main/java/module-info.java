@@ -16,7 +16,6 @@ module com.focusbuddy {
     opens com.focusbuddy.controllers.settings to javafx.fxml;
 
     // Open model packages for JavaFX properties
-    opens com.focusbuddy.models to javafx.base;
     opens com.focusbuddy.models.notes to javafx.base;
     opens com.focusbuddy.models.tasks to javafx.base;
     opens com.focusbuddy.models.pomodoro to javafx.base;
@@ -26,11 +25,19 @@ module com.focusbuddy {
     // Export base packages
     exports com.focusbuddy;
     exports com.focusbuddy.controllers;
-    exports com.focusbuddy.models;
-    exports com.focusbuddy.services;
+    exports com.focusbuddy.models.notes;
+    exports com.focusbuddy.models.tasks;
+    exports com.focusbuddy.models.pomodoro;
+    exports com.focusbuddy.models.subjects;
+    exports com.focusbuddy.models.settings;
+    exports com.focusbuddy.services.notes;
+    exports com.focusbuddy.services.tasks;
+    exports com.focusbuddy.services.pomodoro;
+    exports com.focusbuddy.services.subjects;
     exports com.focusbuddy.utils;
     exports com.focusbuddy.database;
-    exports com.focusbuddy.observers;
+    exports com.focusbuddy.observers.notification;
+    exports com.focusbuddy.observers.timer;
 
     // Export controller subpackages
     exports com.focusbuddy.controllers.tasks;
@@ -38,19 +45,6 @@ module com.focusbuddy {
     exports com.focusbuddy.controllers.pomodoro;
     exports com.focusbuddy.controllers.subjects;
     exports com.focusbuddy.controllers.settings;
-
-    // Export model subpackages
-    exports com.focusbuddy.models.notes;
-    exports com.focusbuddy.models.tasks;
-    exports com.focusbuddy.models.pomodoro;
-    exports com.focusbuddy.models.subjects;
-    exports com.focusbuddy.models.settings;
-
-    // Export service packages
-    exports com.focusbuddy.services.tasks;
-    exports com.focusbuddy.services.notes;
-    exports com.focusbuddy.services.pomodoro;
-    exports com.focusbuddy.services.subjects;
 
     // Export utility packages
     exports com.focusbuddy.utils.validation;
@@ -62,8 +56,4 @@ module com.focusbuddy {
     exports com.focusbuddy.utils.theme;
     exports com.focusbuddy.utils.security;
     exports com.focusbuddy.utils.data;
-
-    // Export observer packages
-    exports com.focusbuddy.observers.timer;
-    exports com.focusbuddy.observers.notification;
 }

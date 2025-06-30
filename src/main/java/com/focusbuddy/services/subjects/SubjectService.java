@@ -1,7 +1,7 @@
 package com.focusbuddy.services.subjects;
 
 import com.focusbuddy.database.DatabaseManager;
-import com.focusbuddy.models.Subject;
+import com.focusbuddy.models.subjects.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -105,5 +105,29 @@ public class SubjectService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public Subject getSubjectById(int subjectId) {
+        String query = "SELECT * FROM subjects WHERE id = ?";
+
+        try (Connection conn = DatabaseManager.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, subjectId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Subject subject = new Subject();
+                subject.setId(rs.getInt("id"));
+                subject.setUserId(rs.getInt("user_id"));
+                subject.setName(rs.getString("name"));
+                subject.setColor(rs.getString("color"));
+                return subject;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; // Return null jika subject tidak ditemukan
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalTime;
 public class ValidationUtils {
     // Email validation pattern
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
-        "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
+            "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
     );
 
     // Password requirements:
@@ -17,15 +17,33 @@ public class ValidationUtils {
     // - Contains at least one uppercase letter
     // - Contains at least one special character
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(
-        "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
     );
 
     // Username requirements:
     // - 3-20 characters
     // - Letters, numbers, underscores, hyphens
     private static final Pattern USERNAME_PATTERN = Pattern.compile(
-        "^[A-Za-z0-9_-]{3,20}$"
+            "^[A-Za-z0-9_-]{3,20}$"
     );
+
+    /**
+     * Checks if a string is not null and not empty (after trimming)
+     * @param str the string to check
+     * @return true if string is not null and not empty, false otherwise
+     */
+    public static boolean isNotEmpty(String str) {
+        return str != null && !str.trim().isEmpty();
+    }
+
+    /**
+     * Checks if a string is null or empty (after trimming)
+     * @param str the string to check
+     * @return true if string is null or empty, false otherwise
+     */
+    public static boolean isEmpty(String str) {
+        return str == null || str.trim().isEmpty();
+    }
 
     public static boolean isValidEmail(String email) {
         if (email == null || email.trim().isEmpty()) {
@@ -69,7 +87,7 @@ public class ValidationUtils {
 
     public static boolean isValidPomodoroSettings(int focusDuration, int breakDuration) {
         return focusDuration >= 1 && focusDuration <= 60 &&
-               breakDuration >= 1 && breakDuration <= 30;
+                breakDuration >= 1 && breakDuration <= 30;
     }
 
     public static boolean isValidTime(LocalTime time) {
@@ -103,17 +121,17 @@ public class ValidationUtils {
 
     public static String getPasswordRequirements() {
         return "Password harus memenuhi kriteria berikut:\n" +
-               "- Minimal 8 karakter\n" +
-               "- Mengandung minimal 1 angka\n" +
-               "- Mengandung minimal 1 huruf kecil\n" +
-               "- Mengandung minimal 1 huruf besar\n" +
-               "- Mengandung minimal 1 karakter spesial (@#$%^&+=!)";
+                "- Minimal 8 karakter\n" +
+                "- Mengandung minimal 1 angka\n" +
+                "- Mengandung minimal 1 huruf kecil\n" +
+                "- Mengandung minimal 1 huruf besar\n" +
+                "- Mengandung minimal 1 karakter spesial (@#$%^&+=!)";
     }
 
     public static String getUsernameRequirements() {
         return "Username harus memenuhi kriteria berikut:\n" +
-               "- Panjang 3-20 karakter\n" +
-               "- Hanya boleh mengandung huruf, angka, underscore, dan hyphen";
+                "- Panjang 3-20 karakter\n" +
+                "- Hanya boleh mengandung huruf, angka, underscore, dan hyphen";
     }
 
     public static String getErrorMessage(String fieldName, String requirement) {

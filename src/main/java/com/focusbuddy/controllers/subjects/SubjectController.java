@@ -1,8 +1,8 @@
 package com.focusbuddy.controllers.subjects;
 
-import com.focusbuddy.models.Subject;
-import com.focusbuddy.services.SubjectService;
-import com.focusbuddy.utils.UserSession;
+import com.focusbuddy.models.subjects.*;
+import com.focusbuddy.services.subjects.*;
+import com.focusbuddy.utils.session.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

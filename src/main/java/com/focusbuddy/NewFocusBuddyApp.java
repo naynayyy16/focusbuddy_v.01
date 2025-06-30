@@ -1,10 +1,10 @@
 package com.focusbuddy;
 
 import com.focusbuddy.database.DatabaseManager;
-import com.focusbuddy.utils.ConfigManager;
-import com.focusbuddy.utils.ErrorHandler;
+import com.focusbuddy.utils.config.*;
+import com.focusbuddy.utils.error.*;
 import com.focusbuddy.utils.NewThemeManager;
-import com.focusbuddy.utils.NotificationManager;
+import com.focusbuddy.utils.notification.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

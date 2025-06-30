@@ -5,7 +5,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 import java.util.function.BiConsumer;
-import com.focusbuddy.observers.TimerObserver;
+import com.focusbuddy.observers.timer.*;
 import java.util.ArrayList;
 import java.util.List;
 

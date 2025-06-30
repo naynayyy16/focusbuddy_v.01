@@ -1,7 +1,7 @@
 package com.focusbuddy.services.notes;
 
 import com.focusbuddy.database.DatabaseManager;
-import com.focusbuddy.models.Note;
+import com.focusbuddy.models.notes.*;
 
 import java.sql.*;
 import java.util.ArrayList;

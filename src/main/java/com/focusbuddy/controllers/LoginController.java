@@ -1,9 +1,10 @@
 package com.focusbuddy.controllers;
 
 import com.focusbuddy.database.DatabaseManager;
-import com.focusbuddy.models.User;
+import com.focusbuddy.models.settings.User;
 import com.focusbuddy.utils.ThemeManager;
-import com.focusbuddy.utils.UserSession;
+import com.focusbuddy.utils.session.UserSession;
+import com.focusbuddy.utils.validation.ValidationUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,8 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.focusbuddy.utils.PasswordUtils;
-import com.focusbuddy.utils.ValidationUtils;
+import com.focusbuddy.utils.security.*;
 
 public class LoginController {
 

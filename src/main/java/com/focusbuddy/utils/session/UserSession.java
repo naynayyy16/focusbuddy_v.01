@@ -1,14 +1,16 @@
 package com.focusbuddy.utils.session;
 
-import com.focusbuddy.models.User;
+import com.focusbuddy.models.settings.User;
 import java.util.prefs.Preferences;
 import java.time.LocalDateTime;
 import java.time.Duration;
+import com.focusbuddy.utils.error.*;
+import com.focusbuddy.utils.notification.*;
 
 public class UserSession {
     private static UserSession instance;
-    private User currentUser;
-    private LocalDateTime loginTime;
+    private static User currentUser;
+    private static LocalDateTime loginTime;
     private final Preferences prefs;
     private static final String LAST_USERNAME_KEY = "last_username";
     private static final String REMEMBER_ME_KEY = "remember_me";
@@ -26,10 +28,34 @@ public class UserSession {
         return instance;
     }
 
+    /**
+     * Authenticate and login user
+     * @param username the username
+     * @param password the password
+     * @param rememberMe whether to remember the user
+     * @return true if login successful, false otherwise
+     */
+    public boolean login(String username, String password, boolean rememberMe) {
+        // Here you would typically validate credentials against database
+        // For now, this is a placeholder - implement actual authentication logic
+        User user = authenticateUser(username, password);
+
+        if (user != null) {
+            login(user, rememberMe);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Login with User object
+     * @param user the user object
+     * @param rememberMe whether to remember the user
+     */
     public void login(User user, boolean rememberMe) {
-        this.currentUser = user;
-        this.loginTime = LocalDateTime.now();
-        
+        currentUser = user;
+        loginTime = LocalDateTime.now();
+
         if (rememberMe) {
             saveUserPreferences(user.getUsername());
         } else {
@@ -41,23 +67,49 @@ public class UserSession {
         NotificationManager.getInstance().showSuccess("Selamat datang, " + user.getUsername() + "!");
     }
 
+    /**
+     * Placeholder for user authentication
+     * Implement this method with actual database/service call
+     */
+    private User authenticateUser(String username, String password) {
+        // TODO: Implement actual authentication logic
+        // This should validate credentials against your database
+        // Return User object if valid, null if invalid
+        return null;
+    }
+
     public void logout() {
         if (currentUser != null) {
             ErrorHandler.logInfo("User logged out: " + currentUser.getUsername());
         }
-        
-        this.currentUser = null;
-        this.loginTime = null;
+
+        currentUser = null;
+        loginTime = null;
     }
 
-    public User getCurrentUser() {
+    /**
+     * Set current user directly without full login process
+     * @param user the user to set as current user (null to clear)
+     */
+    public void setCurrentUser(User user) {
+        currentUser = user;
+        if (user != null) {
+            loginTime = LocalDateTime.now();
+            ErrorHandler.logInfo("Current user set: " + user.getUsername());
+        } else {
+            loginTime = null;
+            ErrorHandler.logInfo("Current user cleared");
+        }
+    }
+
+    public static User getCurrentUser() {
         if (currentUser == null) {
             return null;
         }
 
-        // Check session timeout
+        // Check session expiration before returning user
         if (isSessionExpired()) {
-            logout();
+            performLogout();
             NotificationManager.getInstance().showWarning("Sesi Anda telah berakhir. Silakan login kembali.");
             return null;
         }
@@ -65,11 +117,18 @@ public class UserSession {
         return currentUser;
     }
 
+    /**
+     * Static method to perform logout
+     */
+    public static void performLogout() {
+        getInstance().logout();
+    }
+
     public boolean isLoggedIn() {
         return getCurrentUser() != null;
     }
 
-    private boolean isSessionExpired() {
+    private static boolean isSessionExpired() {
         if (loginTime == null) {
             return true;
         }
@@ -80,7 +139,7 @@ public class UserSession {
 
     public void refreshSession() {
         if (isLoggedIn()) {
-            this.loginTime = LocalDateTime.now();
+            loginTime = LocalDateTime.now();
         }
     }
 
@@ -104,7 +163,7 @@ public class UserSession {
 
     public void updateUserProfile(User updatedUser) {
         if (currentUser != null && currentUser.getId().equals(updatedUser.getId())) {
-            this.currentUser = updatedUser;
+            currentUser = updatedUser;
             ErrorHandler.logInfo("User profile updated: " + updatedUser.getUsername());
             NotificationManager.getInstance().showSuccess("Profil berhasil diperbarui!");
         }

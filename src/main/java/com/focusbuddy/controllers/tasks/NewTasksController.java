@@ -1,9 +1,13 @@
 package com.focusbuddy.controllers.tasks;
 
-import com.focusbuddy.models.Subject;
-import com.focusbuddy.models.Task;
-import com.focusbuddy.services.TaskService;
-import com.focusbuddy.services.SubjectService;
+import com.focusbuddy.utils.error.*;
+import com.focusbuddy.utils.notification.*;
+import com.focusbuddy.utils.icon.*;
+import com.focusbuddy.utils.session.*;
+import com.focusbuddy.models.subjects.*;
+import com.focusbuddy.models.tasks.*;
+import com.focusbuddy.services.tasks.*;
+import com.focusbuddy.services.subjects.*;
 import com.focusbuddy.utils.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,6 +75,40 @@ public class NewTasksController {
             ErrorHandler.log("Error initializing tasks view", e);
             NotificationManager.getInstance().showError("Gagal memuat tampilan tugas");
         }
+    }
+
+    private void deleteCurrentTask() {
+        if (currentTask == null) {
+            NotificationManager.getInstance().showWarning("Tidak ada tugas yang dipilih untuk dihapus");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Hapus Tugas");
+        alert.setHeaderText("Apakah Anda yakin ingin menghapus tugas ini?");
+        alert.setContentText("Tugas: \"" + currentTask.getTitle() + "\"\nTindakan ini tidak dapat dibatalkan.");
+
+        // Add custom buttons for better UX
+        ButtonType deleteButton = new ButtonType("Hapus", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("Batal", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(deleteButton, cancelButton);
+
+        alert.showAndWait().ifPresent(result -> {
+            if (result == deleteButton) {
+                try {
+                    if (taskService.deleteTask(currentTask.getId())) {
+                        NotificationManager.getInstance().showSuccess("Tugas \"" + currentTask.getTitle() + "\" berhasil dihapus");
+                        loadTasks();
+                        createNewTask(); // Clear the form after deletion
+                    } else {
+                        NotificationManager.getInstance().showError("Gagal menghapus tugas");
+                    }
+                } catch (Exception e) {
+                    ErrorHandler.log("Error deleting current task", e);
+                    NotificationManager.getInstance().showError("Terjadi kesalahan saat menghapus tugas");
+                }
+            }
+        });
     }
 
     private void setupControls() {

@@ -1,9 +1,9 @@
 package com.focusbuddy.controllers.pomodoro;
 
-import com.focusbuddy.models.PomodoroSession;
-import com.focusbuddy.services.PomodoroSessionService;
-import com.focusbuddy.utils.NotificationManager;
-import com.focusbuddy.utils.UserSession;
+import com.focusbuddy.models.pomodoro.*;
+import com.focusbuddy.services.pomodoro.*;
+import com.focusbuddy.utils.notification.*;
+import com.focusbuddy.utils.session.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

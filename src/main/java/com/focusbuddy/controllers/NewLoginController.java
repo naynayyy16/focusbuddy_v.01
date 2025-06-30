@@ -1,6 +1,6 @@
 package com.focusbuddy.controllers;
 
-import com.focusbuddy.models.User;
+import com.focusbuddy.models.settings.User;
 import com.focusbuddy.utils.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +12,11 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
+import com.focusbuddy.utils.error.*;
+import com.focusbuddy.utils.icon.*;
+import com.focusbuddy.utils.config.*;
+import com.focusbuddy.utils.notification.*;
+import com.focusbuddy.utils.session.UserSession;
 
 public class NewLoginController {
     
@@ -113,22 +118,16 @@ public class NewLoginController {
         
         try {
             // Attempt login
-            if (UserSession.getInstance().login(username, password)) {
-                // Save credentials if remember me is checked
-                if (rememberMeCheckbox.isSelected()) {
-                    ConfigManager.getInstance().saveUserPreference("last_username", username);
-                    ConfigManager.getInstance().saveUserPreference("remember_me", "true");
-                } else {
-                    ConfigManager.getInstance().removeUserPreference("last_username");
-                    ConfigManager.getInstance().removeUserPreference("remember_me");
-                }
-                
+            if (UserSession.getInstance().login(username, password, rememberMeCheckbox.isSelected())) {
+                // Login berhasil - UserSession sudah menangani remember me secara internal
+                // Tidak perlu save/clear preferences manual karena sudah otomatis
+
                 // Show success message
                 showSuccess("Login berhasil!");
-                
+
                 // Navigate to dashboard with animation
                 navigateToDashboard();
-                
+
             } else {
                 showError("Nama pengguna atau kata sandi salah");
                 passwordField.clear();

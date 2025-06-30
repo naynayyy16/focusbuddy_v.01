@@ -1,13 +1,14 @@
 package com.focusbuddy.controllers;
 
-import com.focusbuddy.models.Task;
-import com.focusbuddy.services.PomodoroTimer;
-import com.focusbuddy.services.TaskService;
+import com.focusbuddy.models.tasks.*;
+import com.focusbuddy.services.pomodoro.*;
+import com.focusbuddy.services.tasks.*;
 import com.focusbuddy.utils.ThemeManager;
-import com.focusbuddy.utils.UserSession;
-import com.focusbuddy.utils.NotificationManager;
-import com.focusbuddy.utils.IconManager;
-import com.focusbuddy.utils.ErrorHandler;
+import com.focusbuddy.utils.session.*;
+import com.focusbuddy.utils.notification.*;
+import com.focusbuddy.utils.security.*;
+import com.focusbuddy.utils.error.*;
+import com.focusbuddy.utils.icon.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

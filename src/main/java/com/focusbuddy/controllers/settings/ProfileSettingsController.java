@@ -8,12 +8,12 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.net.URL;
 
-import com.focusbuddy.models.User;
-import com.focusbuddy.utils.ErrorHandler;
-import com.focusbuddy.utils.NotificationManager;
+import com.focusbuddy.models.settings.User;
+import com.focusbuddy.utils.error.ErrorHandler;
+import com.focusbuddy.utils.notification.*;
 import com.focusbuddy.utils.ThemeManager;
-import com.focusbuddy.utils.UserSession;
-import com.focusbuddy.utils.ValidationUtils;
+import com.focusbuddy.utils.session.*;
+import com.focusbuddy.utils.validation.ValidationUtils;
 
 public class ProfileSettingsController {
 

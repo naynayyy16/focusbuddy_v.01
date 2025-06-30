@@ -1,13 +1,13 @@
-package com.focusbuddy.utils;
+package com.focusbuddy.utils.theme;
 
 import javafx.scene.Scene;
-import javafx.scene.Parent;
+
 import java.util.prefs.Preferences;
 
 public class ThemeManager {
     private static ThemeManager instance;
-    private static Theme currentTheme;
-    private static final Preferences prefs = Preferences.userNodeForPackage(ThemeManager.class);
+    private Theme currentTheme;
+    private final Preferences prefs;
     private static final String THEME_PREF_KEY = "app_theme";
 
     public enum Theme {
@@ -15,6 +15,7 @@ public class ThemeManager {
     }
 
     private ThemeManager() {
+        prefs = Preferences.userNodeForPackage(ThemeManager.class);
         String savedTheme = prefs.get(THEME_PREF_KEY, Theme.DARK.name());
         currentTheme = Theme.valueOf(savedTheme);
     }
@@ -43,12 +44,12 @@ public class ThemeManager {
         scene.getStylesheets().add(getClass().getResource(themePath).toExternalForm());
     }
 
-    public static void setDarkTheme() {
+    public void setDarkTheme() {
         currentTheme = Theme.DARK;
         saveThemePreference(true);
     }
 
-    public static void setLightTheme() {
+    public void setLightTheme() {
         currentTheme = Theme.LIGHT;
         saveThemePreference(false);
     }
@@ -57,11 +58,11 @@ public class ThemeManager {
         return currentTheme;
     }
 
-    public static boolean isDarkTheme() {
+    public boolean isDarkTheme() {
         return currentTheme == Theme.DARK;
     }
 
-    public static void saveThemePreference(boolean isDark) {
+    public void saveThemePreference(boolean isDark) {
         currentTheme = isDark ? Theme.DARK : Theme.LIGHT;
         prefs.put(THEME_PREF_KEY, currentTheme.name());
     }

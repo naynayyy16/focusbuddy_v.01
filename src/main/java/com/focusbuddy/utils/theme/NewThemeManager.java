@@ -1,10 +1,10 @@
-package com.focusbuddy.utils;
+package com.focusbuddy.utils.theme;
 
+import com.focusbuddy.utils.error.ErrorHandler;
+import com.focusbuddy.utils.notification.NotificationManager;
 import javafx.scene.Scene;
-import javafx.scene.Parent;
+
 import java.util.prefs.Preferences;
-import com.focusbuddy.utils.notification.*;
-import com.focusbuddy.utils.error.*;
 
 public class NewThemeManager {
     private static NewThemeManager instance;

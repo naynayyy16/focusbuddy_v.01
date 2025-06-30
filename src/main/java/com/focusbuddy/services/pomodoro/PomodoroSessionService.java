@@ -1,7 +1,7 @@
 package com.focusbuddy.services.pomodoro;
 
 import com.focusbuddy.database.DatabaseManager;
-import com.focusbuddy.models.PomodoroSession;
+import com.focusbuddy.models.pomodoro.PomodoroSession;
 
 import java.sql.*;
 import java.util.ArrayList;

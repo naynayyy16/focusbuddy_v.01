@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.HashMap;
 import java.util.Map;
+import com.focusbuddy.utils.error.*;
 
 public class IconGenerator {
     private static IconGenerator instance;
