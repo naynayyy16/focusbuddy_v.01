@@ -126,7 +126,11 @@ public class DashboardController {
         tasksBtn.setOnAction(e -> showTasks());
         pomodoroBtn.setOnAction(e -> showPomodoro());
         // moodBtn.setOnAction(e -> showMoodTracker());
-        notesBtn.setOnAction(e -> showNotes());
+        notesBtn.setOnAction(e -> {
+            setActiveButton(notesBtn);
+            currentView = "notes";
+            loadView("/fxml/notes.fxml");
+        });
         // goalsBtn.setOnAction(e -> showGoals());
         // exportBtn.setOnAction(e -> showExport());
 
