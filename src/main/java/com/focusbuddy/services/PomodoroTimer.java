@@ -11,13 +11,16 @@ import java.util.List;
 
 public class PomodoroTimer {
     private static final int FOCUS_DURATION = 25 * 60; // 25 minutes in seconds
-    private static final int BREAK_DURATION = 5 * 60;  // 5 minutes in seconds
+    private static final int SHORT_BREAK_DURATION = 5 * 60;  // 5 minutes in seconds
+    private static final int LONG_BREAK_DURATION = 15 * 60;  // 15 minutes in seconds
+    private static final int CYCLES_BEFORE_LONG_BREAK = 4;
     
     private Timeline timeline;
     private int currentSeconds;
     private int totalSeconds;
     private boolean isRunning;
     private boolean isFocusSession;
+    private int cycleCount;
 
     private List<TimerObserver> observers = new ArrayList<>();
     
@@ -81,6 +84,7 @@ public class PomodoroTimer {
         }
         isRunning = false;
         isFocusSession = true;
+        cycleCount = 0;
         currentSeconds = FOCUS_DURATION;
         totalSeconds = FOCUS_DURATION;
         updateDisplay();
@@ -97,9 +101,19 @@ public class PomodoroTimer {
             onTimerComplete.run();
         }
         
-        // Switch between focus and break
-        isFocusSession = !isFocusSession;
-        currentSeconds = isFocusSession ? FOCUS_DURATION : BREAK_DURATION;
+        if (isFocusSession) {
+            cycleCount++;
+            if (cycleCount % CYCLES_BEFORE_LONG_BREAK == 0) {
+                isFocusSession = false;
+                currentSeconds = LONG_BREAK_DURATION;
+            } else {
+                isFocusSession = false;
+                currentSeconds = SHORT_BREAK_DURATION;
+            }
+        } else {
+            isFocusSession = true;
+            currentSeconds = FOCUS_DURATION;
+        }
         totalSeconds = currentSeconds;
         updateDisplay();
     }

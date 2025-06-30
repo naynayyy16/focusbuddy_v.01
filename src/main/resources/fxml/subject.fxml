@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.SubjectController" spacing="15.0" styleClass="card" padding="20">
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Label styleClass="card-title" text="Subjects">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="newSubjectButton" styleClass="primary-button" text="+ New" />
+            </children>
+        </HBox>
+
+        <ListView fx:id="subjectList" prefHeight="400.0" />
+
+        <HBox spacing="10.0">
+            <children>
+                <Button fx:id="deleteSubjectButton" styleClass="secondary-button" text="Delete" HBox.hgrow="ALWAYS" />
+            </children>
+        </HBox>
+
+        <VBox spacing="15.0">
+            <children>
+                <Label styleClass="card-title" text="Subject Details" />
+                <TextField fx:id="subjectNameField" promptText="Subject name..." styleClass="custom-text-field" />
+                <ColorPicker fx:id="subjectColorPicker" />
+                <Button fx:id="saveSubjectButton" styleClass="primary-button" text="Save Subject" />
+            </children>
+        </VBox>
+    </children>
+</VBox>

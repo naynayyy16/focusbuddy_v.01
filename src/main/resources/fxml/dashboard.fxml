@@ -30,6 +30,7 @@
                   <Button fx:id="pomodoroBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="🍅 Pomodoro" />
                   <!-- <Button fx:id="moodBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="😊 Mood Tracker" /> -->
                   <Button fx:id="notesBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="📝 Notes" />
+                  <Button fx:id="subjectBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="📚 Subjects" />
                   <!-- <Button fx:id="goalsBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="🎯 Goals" /> -->
                   <!-- <Button fx:id="exportBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="💾 Export" /> -->
                </children>
@@ -168,9 +169,9 @@
                                     </Label>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📝 Quick Note" />
-                                          <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="😊 Log Mood" /> -->
+                                          <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📝 Quick Note" /> -->
                                           <Button fx:id="quickNoteBtn" maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📝 Quick Note" />
+                                          <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="😊 Log Mood" /> -->
                                           <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📊 View Reports" /> -->
                                           <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="💾 Export Data" /> -->
                                        </children>
