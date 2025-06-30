@@ -125,10 +125,10 @@ public class DashboardController {
         dashboardBtn.setOnAction(e -> showDashboard());
         tasksBtn.setOnAction(e -> showTasks());
         pomodoroBtn.setOnAction(e -> showPomodoro());
-        moodBtn.setOnAction(e -> showMoodTracker());
+        // moodBtn.setOnAction(e -> showMoodTracker());
         notesBtn.setOnAction(e -> showNotes());
-        goalsBtn.setOnAction(e -> showGoals());
-        exportBtn.setOnAction(e -> showExport());
+        // goalsBtn.setOnAction(e -> showGoals());
+        // exportBtn.setOnAction(e -> showExport());
 
         // Set initial active button
         setActiveButton(dashboardBtn);
@@ -335,16 +335,11 @@ public class DashboardController {
         showDashboard(); // Pomodoro is part of dashboard
     }
 
+    /*
     private void showMoodTracker() {
         setActiveButton(moodBtn);
         currentView = "mood";
         loadView("/fxml/mood-tracker.fxml");
-    }
-
-    private void showNotes() {
-        setActiveButton(notesBtn);
-        currentView = "notes";
-        loadView("/fxml/notes.fxml");
     }
 
     private void showGoals() {
@@ -358,6 +353,7 @@ public class DashboardController {
         currentView = "export";
         loadView("/fxml/export.fxml");
     }
+    */
 
     private void loadView(String fxmlPath) {
         try {
