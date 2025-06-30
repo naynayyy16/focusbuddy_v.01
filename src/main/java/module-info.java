@@ -11,7 +11,6 @@ module focusbuddy {
     opens com.focusbuddy.models.notes to javafx.base;
     opens com.focusbuddy.services to javafx.base;
     opens com.focusbuddy.utils to javafx.base;
-    opens com.focusbuddy.observers to javafx.base;
     
     exports com.focusbuddy;
     exports com.focusbuddy.controllers;
@@ -19,5 +18,4 @@ module focusbuddy {
     exports com.focusbuddy.models.notes;
     exports com.focusbuddy.services;
     exports com.focusbuddy.utils;
-    exports com.focusbuddy.observers;
 }
