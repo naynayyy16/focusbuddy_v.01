@@ -26,6 +26,7 @@ public class TasksController {
     @FXML private Button saveTaskButton;
     @FXML private Button newTaskButton;
     @FXML private Button deleteTaskButton;
+    @FXML private ComboBox<String> subjectComboBox;
     
     // Filtering and sorting controls
     @FXML private TextField searchField;
@@ -41,20 +42,38 @@ public class TasksController {
     @FXML private Label overdueTasksLabel;
     
     private TaskService taskService;
+    private SubjectService subjectService;
     private Task currentTask;
     private ObservableList<Task> allTasks;
+    private ObservableList<String> subjectNames;
     
     @FXML
     private void initialize() {
         taskService = new TaskService();
+        subjectService = new SubjectService();
         allTasks = FXCollections.observableArrayList();
+        subjectNames = FXCollections.observableArrayList();
         
         setupTasksList();
         setupComboBoxes();
         setupButtons();
         setupFilters();
+        loadSubjects();
         loadTasks();
         updateStatistics();
+    }
+    
+    private void loadSubjects() {
+        int userId = UserSession.getInstance().getCurrentUser().getId();
+        List<Subject> subjects = subjectService.getSubjectsForUser(userId);
+        subjectNames.clear();
+        for (Subject subject : subjects) {
+            subjectNames.add(subject.getName());
+        }
+        subjectComboBox.setItems(subjectNames);
+        if (!subjectNames.isEmpty()) {
+            subjectComboBox.setValue(subjectNames.get(0));
+        }
     }
     
     private void setupTasksList() {
@@ -81,6 +100,9 @@ public class TasksController {
                     Label statusLabel = new Label("Status: " + task.getStatus());
                     statusLabel.setStyle(getStatusStyle(task.getStatus()));
                     
+                    Label subjectLabel = new Label("Subject: " + getSubjectNameById(task.getSubjectId()));
+                    subjectLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #555;");
+                    
                     if (task.getDueDate() != null) {
                         Label dueDateLabel = new Label("Due: " + task.getDueDate());
                         if (task.getDueDate().isBefore(LocalDate.now()) && task.getStatus() != Task.Status.COMPLETED) {
@@ -89,7 +111,7 @@ public class TasksController {
                         content.getChildren().add(dueDateLabel);
                     }
                     
-                    content.getChildren().addAll(titleLabel, descLabel, priorityLabel, statusLabel);
+                    content.getChildren().addAll(titleLabel, descLabel, priorityLabel, statusLabel, subjectLabel);
                     setGraphic(content);
                     
                     // Set background color based on priority
@@ -103,6 +125,17 @@ public class TasksController {
                 loadTaskDetails(newTask);
             }
         });
+    }
+    
+    private String getSubjectNameById(int subjectId) {
+        int index = 0;
+        for (Subject subject : subjectService.getSubjectsForUser(UserSession.getInstance().getCurrentUser().getId())) {
+            if (subject.getId() == subjectId) {
+                return subject.getName();
+            }
+            index++;
+        }
+        return "Unknown";
     }
     
     private String getPriorityStyle(Task.Priority priority) {
@@ -271,6 +304,7 @@ public class TasksController {
         Task.Priority priority = priorityCombo.getValue();
         Task.Status status = statusCombo.getValue();
         LocalDate dueDate = dueDatePicker.getValue();
+        String subjectName = subjectComboBox.getValue();
         
         if (title.isEmpty()) {
             NotificationManager.getInstance().showNotification(
@@ -281,16 +315,21 @@ public class TasksController {
             return;
         }
         
+        int userId = UserSession.getInstance().getCurrentUser().getId();
+        int subjectId = subjectService.getSubjectIdByName(userId, subjectName);
+        
         Task task;
         if (currentTask == null) {
             task = new Task(title, description, priority, dueDate);
-            task.setUserId(UserSession.getInstance().getCurrentUser().getId());
+            task.setUserId(userId);
+            task.setSubjectId(subjectId);
         } else {
             task = currentTask;
             task.setTitle(title);
             task.setDescription(description);
             task.setPriority(priority);
             task.setDueDate(dueDate);
+            task.setSubjectId(subjectId);
         }
         
         task.setStatus(status);

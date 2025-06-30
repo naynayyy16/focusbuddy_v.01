@@ -14,6 +14,7 @@ public class Task {
     
     private int id;
     private int userId;
+    private int subjectId;
     private String title;
     private String description;
     private Priority priority;
@@ -40,6 +41,9 @@ public class Task {
     
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+    
+    public int getSubjectId() { return subjectId; }
+    public void setSubjectId(int subjectId) { this.subjectId = subjectId; }
     
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }

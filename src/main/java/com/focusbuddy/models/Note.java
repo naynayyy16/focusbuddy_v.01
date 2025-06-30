@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class Note {
     private int id;
     private int userId;
+    private int subjectId;
     private String title;
     private String content;
     private String tags;
@@ -24,6 +25,9 @@ public class Note {
     
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+    
+    public int getSubjectId() { return subjectId; }
+    public void setSubjectId(int subjectId) { this.subjectId = subjectId; }
     
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }

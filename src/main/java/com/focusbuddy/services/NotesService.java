@@ -15,9 +15,10 @@ public class NotesService {
             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             stmt.setInt(1, note.getUserId());
-            stmt.setString(2, note.getTitle());
-            stmt.setString(3, note.getContent());
-            stmt.setString(4, note.getTags());
+            stmt.setInt(2, note.getSubjectId());
+            stmt.setString(3, note.getTitle());
+            stmt.setString(4, note.getContent());
+            stmt.setString(5, note.getTags());
             
             int result = stmt.executeUpdate();
             
@@ -82,6 +83,7 @@ public class NotesService {
                 Note note = new Note();
                 note.setId(rs.getInt("id"));
                 note.setUserId(rs.getInt("user_id"));
+                note.setSubjectId(rs.getInt("subject_id"));
                 note.setTitle(rs.getString("title"));
                 note.setContent(rs.getString("content"));
                 note.setTags(rs.getString("tags"));

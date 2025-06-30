@@ -1,0 +1,85 @@
+classDiagram
+    class User {
+        +int id
+        +String username
+        +String email
+        +String password
+        +int level
+        +int totalXp
+        +Timestamp createdAt
+        +login()
+        +register()
+        +updateProfile()
+        +getTasks()
+        +getSubjects()
+        +getNotes()
+        +getPomodoroSessions()
+    }
+
+    class Subject {
+        +int id
+        +int userId
+        +String name
+        +String color
+        +Timestamp createdAt
+        +addTask()
+        +addNote()
+        +addPomodoroSession()
+        +getTasks()
+        +getNotes()
+        +getPomodoroSessions()
+    }
+
+    class Task {
+        +int id
+        +int userId
+        +int subjectId
+        +String title
+        +String description
+        +enum priority
+        +enum status
+        +boolean completed
+        +Date dueDate
+        +Timestamp createdAt
+        +Timestamp updatedAt
+        +markComplete()
+        +updateTask()
+        +deleteTask()
+    }
+
+    class Note {
+        +int id
+        +int userId
+        +int subjectId
+        +String title
+        +String content
+        +Timestamp createdAt
+        +Timestamp updatedAt
+        +addTag()
+        +updateContent()
+        +deleteNote()
+    }
+
+    class PomodoroSession {
+        +int id
+        +int userId
+        +int taskId
+        +int subjectId
+        +enum type
+        +int duration
+        +Timestamp completedAt
+        +startSession()
+        +pauseSession()
+        +endSession()
+    }
+
+    User "1" -- "0..*" Subject : owns
+    User "1" -- "0..*" Task : creates
+    User "1" -- "0..*" Note : writes
+    User "1" -- "0..*" PomodoroSession : tracks
+
+    Subject "1" -- "0..*" Task : categorizes
+    Subject "1" -- "0..*" Note : categorizes
+    Subject "1" -- "0..*" PomodoroSession : relates_to
+
+    Task "1" -- "0..*" PomodoroSession : focuses_on

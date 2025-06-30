@@ -23,6 +23,7 @@ public class NotesController {
     @FXML private Button deleteNoteButton;
     @FXML private TextField searchField;
     @FXML private TextField tagsField;
+    @FXML private ComboBox<String> subjectComboBox;
     
     // Formatting buttons
     @FXML private Button boldButton;
@@ -31,15 +32,20 @@ public class NotesController {
     @FXML private ColorPicker highlightColorPicker;
     
     private NotesService notesService;
+    private SubjectService subjectService;
     private Note currentNote;
+    private ObservableList<String> subjectNames;
     
     @FXML
     private void initialize() {
         notesService = new NotesService();
+        subjectService = new SubjectService();
+        subjectNames = FXCollections.observableArrayList();
         
         setupNotesList();
         setupButtons();
         setupSearch();
+        loadSubjects();
         loadNotes();
     }
     
@@ -51,7 +57,7 @@ public class NotesController {
                 if (empty || note == null) {
                     setText(null);
                 } else {
-                    setText(note.getTitle());
+                    setText(note.getTitle() + " (" + getSubjectNameById(note.getSubjectId()) + ")");
                 }
             }
         });
@@ -86,11 +92,25 @@ public class NotesController {
         notesList.getItems().setAll(notes);
     }
     
+    private void loadSubjects() {
+        int userId = UserSession.getInstance().getCurrentUser().getId();
+        List<Subject> subjects = subjectService.getSubjectsForUser(userId);
+        subjectNames.clear();
+        for (Subject subject : subjects) {
+            subjectNames.add(subject.getName());
+        }
+        subjectComboBox.setItems(subjectNames);
+        if (!subjectNames.isEmpty()) {
+            subjectComboBox.setValue(subjectNames.get(0));
+        }
+    }
+    
     private void loadNoteContent(Note note) {
         currentNote = note;
         noteTitleField.setText(note.getTitle());
         noteEditor.setHtmlText(note.getContent());
         tagsField.setText(note.getTags() != null ? note.getTags() : "");
+        subjectComboBox.setValue(getSubjectNameById(note.getSubjectId()));
     }
     
     private void createNewNote() {
@@ -114,6 +134,7 @@ public class NotesController {
         String title = noteTitleField.getText().trim();
         String content = noteEditor.getHtmlText();
         String tags = tagsField.getText().trim();
+        String subjectName = subjectComboBox.getValue();
         
         if (title.isEmpty()) {
             NotificationManager.getInstance().showNotification(
@@ -124,9 +145,13 @@ public class NotesController {
             return;
         }
         
+        int userId = UserSession.getInstance().getCurrentUser().getId();
+        int subjectId = subjectService.getSubjectIdByName(userId, subjectName);
+        
         currentNote.setTitle(title);
         currentNote.setContent(content);
         currentNote.setTags(tags);
+        currentNote.setSubjectId(subjectId);
         
         boolean success;
         if (currentNote.getId() == 0) {
