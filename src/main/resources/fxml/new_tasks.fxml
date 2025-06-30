@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.focusbuddy.controllers.NewTasksController">
+    
+    <top>
+        <VBox spacing="15" styleClass="page-header">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+            
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="Daftar Tugas" styleClass="page-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="newTaskButton" text="+ Tambah Tugas" styleClass="primary-button"/>
+            </HBox>
+            
+            <!-- Filter Bar -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="searchField" promptText="Cari tugas..." HBox.hgrow="ALWAYS"/>
+                <ComboBox fx:id="filterPriorityCombo" styleClass="filter-combo"/>
+                <ComboBox fx:id="filterStatusCombo" styleClass="filter-combo"/>
+                <ComboBox fx:id="sortCombo" styleClass="filter-combo"/>
+                <CheckBox fx:id="showCompletedCheckBox" text="Tampilkan yang selesai" selected="true"/>
+            </HBox>
+            
+            <!-- Statistics -->
+            <HBox spacing="20" styleClass="statistics-bar">
+                <Label fx:id="totalTasksLabel" styleClass="stat-label"/>
+                <Label fx:id="pendingTasksLabel" styleClass="stat-label"/>
+                <Label fx:id="completedTasksLabel" styleClass="stat-label"/>
+                <Label fx:id="overdueTasksLabel" styleClass="stat-label"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <SplitPane dividerPositions="0.7" styleClass="content-split">
+            <!-- Tasks List -->
+            <ScrollPane fitToWidth="true" styleClass="tasks-scroll">
+                <VBox fx:id="tasksList" spacing="10" styleClass="tasks-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                </VBox>
+            </ScrollPane>
+            
+            <!-- Task Form -->
+            <VBox spacing="15" styleClass="task-form">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                
+                <Label text="Detail Tugas" styleClass="section-title"/>
+                
+                <Label text="Judul" styleClass="field-label"/>
+                <TextField fx:id="taskTitleField"/>
+                
+                <Label text="Deskripsi" styleClass="field-label"/>
+                <TextArea fx:id="taskDescriptionArea" wrapText="true" prefRowCount="4"/>
+                
+                <Label text="Mata Pelajaran" styleClass="field-label"/>
+                <ComboBox fx:id="subjectComboBox" maxWidth="Infinity"/>
+                
+                <Label text="Prioritas" styleClass="field-label"/>
+                <ComboBox fx:id="priorityCombo" maxWidth="Infinity"/>
+                
+                <Label text="Status" styleClass="field-label"/>
+                <ComboBox fx:id="statusCombo" maxWidth="Infinity"/>
+                
+                <Label text="Tenggat Waktu" styleClass="field-label"/>
+                <DatePicker fx:id="dueDatePicker" maxWidth="Infinity"/>
+                
+                <Region VBox.vgrow="ALWAYS"/>
+                
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button fx:id="deleteTaskButton" text="Hapus" styleClass="danger-button"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="saveTaskButton" text="Simpan" styleClass="primary-button"/>
+                </HBox>
+            </VBox>
+        </SplitPane>
+    </center>
+    
+</BorderPane>

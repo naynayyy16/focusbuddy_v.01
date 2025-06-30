@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.focusbuddy.controllers.NewLoginController"
+           styleClass="login-background">
+           
+    <VBox fx:id="loginContainer" styleClass="login-container" maxWidth="400" spacing="20">
+        <padding>
+            <Insets top="30" right="40" bottom="30" left="40"/>
+        </padding>
+        
+        <!-- Header -->
+        <VBox alignment="CENTER" spacing="10">
+            <Label text="FocusBuddy" styleClass="app-title">
+                <font>
+                    <Font name="System Bold" size="36.0"/>
+                </font>
+            </Label>
+            <Label text="Asisten Produktivitas Anda" styleClass="app-subtitle"/>
+        </VBox>
+        
+        <!-- Theme Toggle -->
+        <HBox alignment="CENTER_RIGHT">
+            <ToggleButton fx:id="themeToggle" styleClass="theme-toggle"/>
+        </HBox>
+        
+        <!-- Login Form -->
+        <VBox spacing="15" styleClass="form-container">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <!-- Username Field -->
+            <VBox spacing="5">
+                <Label text="Nama Pengguna" styleClass="field-label"/>
+                <TextField fx:id="usernameField" styleClass="custom-text-field"/>
+            </VBox>
+            
+            <!-- Password Field -->
+            <VBox spacing="5">
+                <Label text="Kata Sandi" styleClass="field-label"/>
+                <PasswordField fx:id="passwordField" styleClass="custom-text-field"/>
+            </VBox>
+            
+            <!-- Remember Me -->
+            <CheckBox fx:id="rememberMeCheckbox" text="Ingat Saya" 
+                     styleClass="remember-me-checkbox" selected="false"/>
+            
+            <!-- Status Message -->
+            <Label fx:id="statusLabel" styleClass="status-label" 
+                   wrapText="true" alignment="CENTER"/>
+            
+            <!-- Buttons -->
+            <VBox spacing="10" alignment="CENTER">
+                <Button fx:id="loginButton" text="Masuk" 
+                        styleClass="primary-button" onAction="#handleLogin" 
+                        maxWidth="Infinity"/>
+                <Button fx:id="registerButton" text="Daftar" 
+                        styleClass="secondary-button" onAction="#handleRegister" 
+                        maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+        
+        <!-- Footer -->
+        <VBox alignment="CENTER" spacing="5">
+            <Label text="© 2024 FocusBuddy" styleClass="copyright-text"/>
+            <Label text="Versi 1.0.0" styleClass="version-text"/>
+        </VBox>
+    </VBox>
+    
+</StackPane>

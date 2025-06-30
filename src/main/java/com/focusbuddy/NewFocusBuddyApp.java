@@ -1,8 +1,10 @@
 package com.focusbuddy;
 
-import com.focusbuddy.controllers.LoginController;
 import com.focusbuddy.database.DatabaseManager;
-import com.focusbuddy.utils.ThemeManager;
+import com.focusbuddy.utils.ConfigManager;
+import com.focusbuddy.utils.ErrorHandler;
+import com.focusbuddy.utils.NewThemeManager;
+import com.focusbuddy.utils.NotificationManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,7 +13,7 @@ import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 
-public class FocusBuddyApp extends Application {
+public class NewFocusBuddyApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -27,7 +29,7 @@ public class FocusBuddyApp extends Application {
             Scene scene = new Scene(loader.load());
 
             // Apply theme
-            ThemeManager.getInstance().initializeTheme(scene);
+            NewThemeManager.getInstance().initializeTheme(scene);
 
             // Configure stage
             primaryStage.setTitle("FocusBuddy");
@@ -44,15 +46,14 @@ public class FocusBuddyApp extends Application {
             primaryStage.setMinWidth(800);
             primaryStage.setMinHeight(600);
 
-            // Set application icon (with proper error handling)
+            // Set application icon
             try {
                 Image icon = new Image(getClass().getResourceAsStream("/images/icon.png"));
                 if (!icon.isError()) {
                     primaryStage.getIcons().add(icon);
                 }
             } catch (Exception iconError) {
-                System.out.println("Warning: Could not load application icon - " + iconError.getMessage());
-                // Continue without icon
+                ErrorHandler.log("Could not load application icon", iconError);
             }
 
             // Show the stage
@@ -94,6 +95,11 @@ public class FocusBuddyApp extends Application {
     }
 
     public static void main(String[] args) {
+        // Set system properties for better UI scaling and performance
+        System.setProperty("prism.allowhidpi", "true");
+        System.setProperty("glass.gtk.uiScale", "1.0");
+        System.setProperty("prism.order", "sw,d3d,es2");
+
         launch(args);
     }
 }

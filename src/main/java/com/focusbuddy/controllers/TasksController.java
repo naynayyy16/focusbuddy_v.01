@@ -37,7 +37,7 @@ public class TasksController {
     @FXML private ComboBox<String> sortCombo;
     @FXML private CheckBox showCompletedCheckBox;
     
-    // Statistics
+    // Statistik
     @FXML private Label totalTasksLabel;
     @FXML private Label pendingTasksLabel;
     @FXML private Label completedTasksLabel;
@@ -89,31 +89,53 @@ public class TasksController {
                 } else {
                     VBox content = new VBox(3);
                     
+                    // Title with icon
+                    HBox titleBox = new HBox(5);
+                    Label titleIcon = IconManager.getInstance().createIcon(IconManager.ICON_TASKS);
                     Label titleLabel = new Label(task.getTitle());
-                    titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+                    titleLabel.getStyleClass().add("task-title");
+                    titleBox.getChildren().addAll(titleIcon, titleLabel);
                     
+                    // Description
                     Label descLabel = new Label(task.getDescription());
-                    descLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: gray;");
+                    descLabel.getStyleClass().add("task-description");
                     descLabel.setWrapText(true);
                     
-                    Label priorityLabel = new Label("Priority: " + task.getPriority());
-                    priorityLabel.setStyle(getPriorityStyle(task.getPriority()));
+                    // Priority with icon
+                    HBox priorityBox = new HBox(5);
+                    Label priorityIcon = IconManager.getInstance().createIcon(getPriorityIcon(task.getPriority()));
+                    Label priorityLabel = new Label(getPriorityText(task.getPriority()));
+                    priorityLabel.getStyleClass().addAll("task-priority", "priority-" + task.getPriority().name().toLowerCase());
+                    priorityBox.getChildren().addAll(priorityIcon, priorityLabel);
                     
-                    Label statusLabel = new Label("Status: " + task.getStatus());
-                    statusLabel.setStyle(getStatusStyle(task.getStatus()));
+                    // Status with icon
+                    HBox statusBox = new HBox(5);
+                    Label statusIcon = IconManager.getInstance().createIcon(getStatusIcon(task.getStatus()));
+                    Label statusLabel = new Label(getStatusText(task.getStatus()));
+                    statusLabel.getStyleClass().addAll("task-status", "status-" + task.getStatus().name().toLowerCase());
+                    statusBox.getChildren().addAll(statusIcon, statusLabel);
                     
-                    Label subjectLabel = new Label("Subject: " + getSubjectNameById(task.getSubjectId()));
-                    subjectLabel.setStyle("-fx-font-size: 11px; -fx-text-fill: #555;");
+                    // Subject with icon
+                    HBox subjectBox = new HBox(5);
+                    Label subjectIcon = IconManager.getInstance().createIcon(IconManager.ICON_NOTES);
+                    Label subjectLabel = new Label(getSubjectNameById(task.getSubjectId()));
+                    subjectLabel.getStyleClass().add("task-subject");
+                    subjectBox.getChildren().addAll(subjectIcon, subjectLabel);
                     
+                    // Due date with icon
                     if (task.getDueDate() != null) {
-                        Label dueDateLabel = new Label("Due: " + task.getDueDate());
+                        HBox dateBox = new HBox(5);
+                        Label dateIcon = IconManager.getInstance().createIcon(IconManager.ICON_CALENDAR);
+                        Label dueDateLabel = new Label(formatDueDate(task.getDueDate()));
+                        dueDateLabel.getStyleClass().add("task-date");
                         if (task.getDueDate().isBefore(LocalDate.now()) && task.getStatus() != Task.Status.COMPLETED) {
-                            dueDateLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+                            dueDateLabel.getStyleClass().add("overdue");
                         }
-                        content.getChildren().add(dueDateLabel);
+                        dateBox.getChildren().addAll(dateIcon, dueDateLabel);
+                        content.getChildren().add(dateBox);
                     }
                     
-                    content.getChildren().addAll(titleLabel, descLabel, priorityLabel, statusLabel, subjectLabel);
+                    content.getChildren().addAll(titleBox, descLabel, priorityBox, statusBox, subjectBox);
                     setGraphic(content);
                     
                     // Set background color based on priority
@@ -140,20 +162,47 @@ public class TasksController {
         return "Unknown";
     }
     
-    private String getPriorityStyle(Task.Priority priority) {
+    private String getPriorityIcon(Task.Priority priority) {
         return switch (priority) {
-            case HIGH -> "-fx-text-fill: #F44336; -fx-font-weight: bold;";
-            case MEDIUM -> "-fx-text-fill: #FF9800; -fx-font-weight: bold;";
-            case LOW -> "-fx-text-fill: #4CAF50; -fx-font-weight: bold;";
+            case HIGH -> IconManager.ICON_WARNING;
+            case MEDIUM -> IconManager.ICON_INFO;
+            case LOW -> IconManager.ICON_SUCCESS;
         };
     }
     
-    private String getStatusStyle(Task.Status status) {
-        return switch (status) {
-            case COMPLETED -> "-fx-text-fill: #4CAF50; -fx-font-weight: bold;";
-            case IN_PROGRESS -> "-fx-text-fill: #2196F3; -fx-font-weight: bold;";
-            case PENDING -> "-fx-text-fill: #FF9800; -fx-font-weight: bold;";
+    private String getPriorityText(Task.Priority priority) {
+        return switch (priority) {
+            case HIGH -> "Prioritas Tinggi";
+            case MEDIUM -> "Prioritas Sedang";
+            case LOW -> "Prioritas Rendah";
         };
+    }
+    
+    private String getStatusIcon(Task.Status status) {
+        return switch (status) {
+            case COMPLETED -> IconManager.ICON_SUCCESS;
+            case IN_PROGRESS -> IconManager.ICON_INFO;
+            case PENDING -> IconManager.ICON_WARNING;
+        };
+    }
+    
+    private String getStatusText(Task.Status status) {
+        return switch (status) {
+            case COMPLETED -> "Selesai";
+            case IN_PROGRESS -> "Sedang Dikerjakan";
+            case PENDING -> "Menunggu";
+        };
+    }
+    
+    private String formatDueDate(LocalDate date) {
+        if (date.equals(LocalDate.now())) {
+            return "Hari ini";
+        } else if (date.equals(LocalDate.now().plusDays(1))) {
+            return "Besok";
+        } else if (date.equals(LocalDate.now().minusDays(1))) {
+            return "Kemarin";
+        }
+        return date.format(DateTimeFormatter.ofPattern("d MMMM yyyy"));
     }
     
     private String getTaskItemStyle(Task task) {
@@ -171,19 +220,21 @@ public class TasksController {
         priorityCombo.getItems().addAll(Task.Priority.values());
         statusCombo.getItems().addAll(Task.Status.values());
         
-        filterPriorityCombo.getItems().add(null); // For "All" option
+        filterPriorityCombo.getItems().add(null); // Untuk opsi "Semua"
         filterPriorityCombo.getItems().addAll(Task.Priority.values());
+        filterPriorityCombo.setPromptText("Semua Prioritas");
         
-        filterStatusCombo.getItems().add(null); // For "All" option
+        filterStatusCombo.getItems().add(null); // Untuk opsi "Semua"
         filterStatusCombo.getItems().addAll(Task.Status.values());
+        filterStatusCombo.setPromptText("Semua Status");
         
         sortCombo.getItems().addAll(
-            "Title (A-Z)", "Title (Z-A)",
-            "Priority (High-Low)", "Priority (Low-High)",
-            "Due Date (Earliest)", "Due Date (Latest)",
-            "Created Date (Newest)", "Created Date (Oldest)"
+            "Judul (A-Z)", "Judul (Z-A)",
+            "Prioritas (Tinggi-Rendah)", "Prioritas (Rendah-Tinggi)",
+            "Tenggat Waktu (Terdekat)", "Tenggat Waktu (Terjauh)",
+            "Tanggal Dibuat (Terbaru)", "Tanggal Dibuat (Terlama)"
         );
-        sortCombo.setValue("Priority (High-Low)");
+        sortCombo.setValue("Prioritas (Tinggi-Rendah)");
     }
     
     private void setupButtons() {
@@ -245,29 +296,29 @@ public class TasksController {
         String sortOption = sortCombo.getValue();
         if (sortOption != null) {
             switch (sortOption) {
-                case "Title (A-Z)" -> filteredTasks.sort((t1, t2) -> t1.getTitle().compareToIgnoreCase(t2.getTitle()));
-                case "Title (Z-A)" -> filteredTasks.sort((t1, t2) -> t2.getTitle().compareToIgnoreCase(t1.getTitle()));
-                case "Priority (High-Low)" -> filteredTasks.sort((t1, t2) -> t2.getPriority().compareTo(t1.getPriority()));
-                case "Priority (Low-High)" -> filteredTasks.sort((t1, t2) -> t1.getPriority().compareTo(t2.getPriority()));
-                case "Due Date (Earliest)" -> filteredTasks.sort((t1, t2) -> {
+                case "Judul (A-Z)" -> filteredTasks.sort((t1, t2) -> t1.getTitle().compareToIgnoreCase(t2.getTitle()));
+                case "Judul (Z-A)" -> filteredTasks.sort((t1, t2) -> t2.getTitle().compareToIgnoreCase(t1.getTitle()));
+                case "Prioritas (Tinggi-Rendah)" -> filteredTasks.sort((t1, t2) -> t2.getPriority().compareTo(t1.getPriority()));
+                case "Prioritas (Rendah-Tinggi)" -> filteredTasks.sort((t1, t2) -> t1.getPriority().compareTo(t2.getPriority()));
+                case "Tenggat Waktu (Terdekat)" -> filteredTasks.sort((t1, t2) -> {
                     if (t1.getDueDate() == null && t2.getDueDate() == null) return 0;
                     if (t1.getDueDate() == null) return 1;
                     if (t2.getDueDate() == null) return -1;
                     return t1.getDueDate().compareTo(t2.getDueDate());
                 });
-                case "Due Date (Latest)" -> filteredTasks.sort((t1, t2) -> {
+                case "Tenggat Waktu (Terjauh)" -> filteredTasks.sort((t1, t2) -> {
                     if (t1.getDueDate() == null && t2.getDueDate() == null) return 0;
                     if (t1.getDueDate() == null) return -1;
                     if (t2.getDueDate() == null) return 1;
                     return t2.getDueDate().compareTo(t1.getDueDate());
                 });
-                case "Created Date (Newest)" -> filteredTasks.sort((t1, t2) -> {
+                case "Tanggal Dibuat (Terbaru)" -> filteredTasks.sort((t1, t2) -> {
                     if (t1.getCreatedAt() == null && t2.getCreatedAt() == null) return 0;
                     if (t1.getCreatedAt() == null) return 1;
                     if (t2.getCreatedAt() == null) return -1;
                     return t2.getCreatedAt().compareTo(t1.getCreatedAt());
                 });
-                case "Created Date (Oldest)" -> filteredTasks.sort((t1, t2) -> {
+                case "Tanggal Dibuat (Terlama)" -> filteredTasks.sort((t1, t2) -> {
                     if (t1.getCreatedAt() == null && t2.getCreatedAt() == null) return 0;
                     if (t1.getCreatedAt() == null) return -1;
                     if (t2.getCreatedAt() == null) return 1;
@@ -308,10 +359,29 @@ public class TasksController {
         LocalDate dueDate = dueDatePicker.getValue();
         String subjectName = subjectComboBox.getValue();
         
+        // Validasi input
         if (title.isEmpty()) {
             NotificationManager.getInstance().showNotification(
-                "Validation Error", 
-                "Task title cannot be empty", 
+                "Error Validasi", 
+                "Judul tugas tidak boleh kosong", 
+                NotificationManager.NotificationType.WARNING
+            );
+            return;
+        }
+
+        if (description.isEmpty()) {
+            NotificationManager.getInstance().showNotification(
+                "Error Validasi", 
+                "Deskripsi tugas tidak boleh kosong", 
+                NotificationManager.NotificationType.WARNING
+            );
+            return;
+        }
+
+        if (subjectName == null || subjectName.isEmpty()) {
+            NotificationManager.getInstance().showNotification(
+                "Error Validasi", 
+                "Silakan pilih mata pelajaran", 
                 NotificationManager.NotificationType.WARNING
             );
             return;
@@ -345,15 +415,15 @@ public class TasksController {
         
         if (success) {
             NotificationManager.getInstance().showNotification(
-                "Task Saved", 
-                "Your task has been saved successfully!", 
+                "Tugas Tersimpan", 
+                "Tugas Anda telah berhasil disimpan!", 
                 NotificationManager.NotificationType.SUCCESS
             );
             loadTasks();
         } else {
             NotificationManager.getInstance().showNotification(
                 "Error", 
-                "Failed to save task", 
+                "Gagal menyimpan tugas", 
                 NotificationManager.NotificationType.ERROR
             );
         }
@@ -365,18 +435,18 @@ public class TasksController {
         }
         
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Task");
-        alert.setHeaderText("Are you sure you want to delete this task?");
-        alert.setContentText("This action cannot be undone.");
+        alert.setTitle("Hapus Tugas");
+        alert.setHeaderText("Apakah Anda yakin ingin menghapus tugas ini?");
+        alert.setContentText("Tindakan ini tidak dapat dibatalkan.");
         
         alert.showAndWait().ifPresent(result -> {
             if (result == ButtonType.OK) {
                 if (taskService.deleteTask(currentTask.getId())) {
-                    NotificationManager.getInstance().showNotification(
-                        "Task Deleted", 
-                        "Task has been deleted successfully", 
-                        NotificationManager.NotificationType.SUCCESS
-                    );
+            NotificationManager.getInstance().showNotification(
+                "Tugas Dihapus", 
+                "Tugas telah berhasil dihapus", 
+                NotificationManager.NotificationType.SUCCESS
+            );
                     loadTasks();
                     createNewTask();
                 }
@@ -396,9 +466,9 @@ public class TasksController {
                         t.getStatus() != Task.Status.COMPLETED)
             .count();
         
-        totalTasksLabel.setText("Total: " + total);
-        pendingTasksLabel.setText("Pending: " + pending);
-        completedTasksLabel.setText("Completed: " + completed);
-        overdueTasksLabel.setText("Overdue: " + overdue);
+        totalTasksLabel.setText("Total Tugas: " + total);
+        pendingTasksLabel.setText("Menunggu: " + pending);
+        completedTasksLabel.setText("Selesai: " + completed);
+        overdueTasksLabel.setText("Terlambat: " + overdue);
     }
 }

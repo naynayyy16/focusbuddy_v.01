@@ -9,7 +9,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: white; -fx-padding: 15px 20px;" minHeight="60.0">
          <children>
-            <Label fx:id="welcomeLabel" styleClass="card-title" text="Welcome to FocusBuddy!" wrapText="true">
+            <Label fx:id="welcomeLabel" styleClass="card-title" text="Selamat datang di FocusBuddy!" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -25,14 +25,12 @@
          <children>
             <VBox spacing="5.0">
                <children>
-                  <Button fx:id="dashboardBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="📊 Dashboard" />
-                  <Button fx:id="tasksBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="✅ Tasks" />
-                  <Button fx:id="pomodoroBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="🍅 Pomodoro" />
-                  <!-- <Button fx:id="moodBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="😊 Mood Tracker" /> -->
-                  <Button fx:id="notesBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="📝 Notes" />
-                  <Button fx:id="subjectBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="📚 Subjects" />
-                  <!-- <Button fx:id="goalsBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="🎯 Goals" /> -->
-                  <!-- <Button fx:id="exportBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="💾 Export" /> -->
+                  <Button fx:id="dashboardBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="Dashboard" contentDisplay="LEFT" />
+                  <Button fx:id="tasksBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="Tugas" contentDisplay="LEFT" />
+                  <Button fx:id="pomodoroBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="Pomodoro" contentDisplay="LEFT" />
+                  <Button fx:id="notesBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="Catatan" contentDisplay="LEFT" />
+                  <Button fx:id="subjectBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="Mata Pelajaran" contentDisplay="LEFT" />
+                  <Button fx:id="profileBtn" maxWidth="1.7976931348623157E308" styleClass="sidebar-button" text="Profil" contentDisplay="LEFT" />
                </children>
                <padding>
                   <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
@@ -54,7 +52,7 @@
                            <children>
                               <VBox styleClass="card" HBox.hgrow="ALWAYS" minWidth="300.0">
                                  <children>
-                                    <Label styleClass="card-title" text="Pomodoro Timer">
+                                          <Label styleClass="card-title" text="Timer Pomodoro">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -70,9 +68,9 @@
                                                        progress="0.0" styleClass="progress-bar" />
                                           <HBox alignment="CENTER" spacing="10.0">
                                              <children>
-                                                <Button fx:id="startTimerBtn" styleClass="primary-button" text="Start" />
-                                                <Button fx:id="pauseTimerBtn" styleClass="secondary-button" text="Pause" />
-                                                <Button fx:id="resetTimerBtn" styleClass="secondary-button" text="Reset" />
+                                                <Button fx:id="startTimerBtn" styleClass="primary-button" text="Mulai" />
+                                                <Button fx:id="pauseTimerBtn" styleClass="secondary-button" text="Jeda" />
+                                                <Button fx:id="resetTimerBtn" styleClass="secondary-button" text="Ulang" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -95,8 +93,8 @@
                                           </Label>
                                           <VBox spacing="10.0">
                                              <children>
-                                                <Label fx:id="tasksCompletedLabel" text="0 tasks completed" wrapText="true" />
-                                                <Label fx:id="focusTimeLabel" text="0h 0m focus time" wrapText="true" />
+                                                <Label fx:id="tasksCompletedLabel" text="0 tugas selesai" wrapText="true" />
+                                                <Label fx:id="focusTimeLabel" text="0j 0m waktu fokus" wrapText="true" />
                                              </children>
                                              <padding>
                                                 <Insets top="10.0" />
@@ -114,13 +112,13 @@
                            <children>
                               <HBox alignment="CENTER_LEFT">
                                  <children>
-                                    <Label styleClass="card-title" text="Today's Tasks">
+                                    <Label styleClass="card-title" text="Tugas Hari Ini">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                     <Region HBox.hgrow="ALWAYS" />
-                                    <Button styleClass="primary-button" text="+ Add Task" />
+                                    <Button styleClass="primary-button" text="+ Tambah Tugas" />
                                  </children>
                               </HBox>
                               <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="300.0"
@@ -141,17 +139,17 @@
                            <children>
                               <VBox styleClass="card" HBox.hgrow="ALWAYS" minWidth="300.0">
                                  <children>
-                                    <Label styleClass="card-title" text="Recent Activity">
+                                    <Label styleClass="card-title" text="Aktivitas Terbaru">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
                                     </Label>
                                     <VBox spacing="8.0">
                                        <children>
-                                          <Label text="• Completed 'Study Java OOP' task" wrapText="true" />
-                                          <Label text="• Finished 25-minute focus session" wrapText="true" />
-                                          <Label text="• Added new goal: 'Complete project'" wrapText="true" />
-                                          <Label text="• Logged mood: Happy 😊" wrapText="true" />
+                                          <Label text="• Menyelesaikan tugas 'Belajar Java OOP'" wrapText="true" />
+                                          <Label text="• Menyelesaikan sesi fokus 25 menit" wrapText="true" />
+                                          <Label text="• Menambahkan tugas baru: 'Selesaikan proyek'" wrapText="true" />
+                                          <Label text="• Menyelesaikan catatan baru" wrapText="true" />
                                        </children>
                                        <padding>
                                           <Insets top="10.0" />
@@ -162,7 +160,7 @@
 
                               <VBox styleClass="card" HBox.hgrow="ALWAYS" minWidth="300.0">
                                  <children>
-                                    <Label styleClass="card-title" text="Quick Actions">
+                                    <Label styleClass="card-title" text="Aksi Cepat">
                                        <font>
                                           <Font name="System Bold" size="16.0" />
                                        </font>
@@ -170,7 +168,7 @@
                                     <VBox spacing="10.0">
                                        <children>
                                           <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📝 Quick Note" /> -->
-                                          <Button fx:id="quickNoteBtn" maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📝 Quick Note" />
+                                          <Button fx:id="quickNoteBtn" maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="Catatan Cepat" contentDisplay="LEFT" />
                                           <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="😊 Log Mood" /> -->
                                           <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="📊 View Reports" /> -->
                                           <!-- <Button maxWidth="1.7976931348623157E308" styleClass="secondary-button" text="💾 Export Data" /> -->

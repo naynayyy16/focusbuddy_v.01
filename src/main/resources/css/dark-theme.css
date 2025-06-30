@@ -1,39 +1,69 @@
 /* Dark Theme Styles - Enhanced Responsive */
 .root {
-  -fx-base: #2b2b2b;
-  -fx-background: #1e1e1e;
-  -fx-control-inner-background: #3c3c3c;
-  -fx-accent: #64b5f6;
-  -fx-default-button: #64b5f6;
-  -fx-focus-color: #64b5f6;
-  -fx-faint-focus-color: #64b5f622;
+  -fx-base: #1A1B2E;
+  -fx-background: #1A1B2E;
+  -fx-control-inner-background: #2B2B3E;
+  -fx-accent: #00D2FF;
+  -fx-default-button: #00D2FF;
+  -fx-focus-color: #00D2FF;
+  -fx-faint-focus-color: #00D2FF22;
 }
 
-/* Login Styles */
+/* Login Background */
+.login-background {
+    -fx-background-color: #1A1B2E;
+}
+
+/* Login Container */
 .login-container {
-  -fx-background-color: linear-gradient(to bottom right, #434343 0%, #000000 100%);
-  -fx-background-radius: 10;
-  -fx-padding: 20;
-  -fx-min-width: 400;
-  -fx-max-width: 500;
+    -fx-background-color: transparent;
+    -fx-padding: 30;
+    -fx-spacing: 20;
+    -fx-alignment: center;
 }
 
+/* App Title */
 .app-title {
-  -fx-text-fill: white;
-  -fx-font-weight: bold;
-  -fx-font-size: 36px;
+    -fx-text-fill: #00D2FF;
+    -fx-font-weight: bold;
+    -fx-font-size: 36px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
 }
 
+/* App Subtitle */
 .app-subtitle {
-  -fx-text-fill: #b0bec5;
-  -fx-font-size: 16px;
+    -fx-text-fill: #B0B0C0;
+    -fx-font-size: 16px;
 }
 
+/* Form Container */
 .form-container {
-  -fx-background-color: #2b2b2b;
-  -fx-background-radius: 15px;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 20, 0, 0, 5);
-  -fx-min-width: 350;
+    -fx-background-color: #2B2B3E;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 20, 0, 0, 5);
+    -fx-padding: 30;
+    -fx-spacing: 15;
+}
+
+/* Remember Me Checkbox */
+.remember-me-checkbox {
+    -fx-text-fill: #B0B0C0;
+}
+
+.remember-me-checkbox:selected .box {
+    -fx-background-color: #00D2FF;
+}
+
+/* Copyright Text */
+.copyright-text {
+    -fx-text-fill: #B0B0C0;
+    -fx-font-size: 12px;
+}
+
+/* Version Text */
+.version-text {
+    -fx-text-fill: #808090;
+    -fx-font-size: 11px;
 }
 
 .field-label {
@@ -60,7 +90,7 @@
 }
 
 .primary-button {
-  -fx-background-color: #64b5f6;
+  -fx-background-color: linear-gradient(to right, #00D2FF, #B721FF);
   -fx-text-fill: white;
   -fx-background-radius: 8px;
   -fx-padding: 12px 24px;
@@ -68,16 +98,18 @@
   -fx-font-weight: bold;
   -fx-cursor: hand;
   -fx-min-width: 100;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
 }
 
 .primary-button:hover {
-  -fx-background-color: #42a5f5;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
+  -fx-translate-y: -1px;
 }
 
 .secondary-button {
   -fx-background-color: transparent;
-  -fx-text-fill: #64b5f6;
-  -fx-border-color: #64b5f6;
+  -fx-text-fill: #00D2FF;
+  -fx-border-color: #00D2FF;
   -fx-border-radius: 8px;
   -fx-background-radius: 8px;
   -fx-padding: 12px 24px;
@@ -88,8 +120,7 @@
 }
 
 .secondary-button:hover {
-  -fx-background-color: #64b5f6;
-  -fx-text-fill: white;
+  -fx-background-color: #00D2FF22;
 }
 
 .theme-toggle {
@@ -117,9 +148,8 @@
 }
 
 .sidebar {
-  -fx-background-color: #2b2b2b;
-  -fx-border-color: #404040;
-  -fx-border-width: 0 1 0 0;
+  -fx-background-color: #2B2B3E;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 5, 0);
   -fx-min-width: 200;
   -fx-pref-width: 250;
   -fx-max-width: 300;
@@ -140,10 +170,9 @@
 }
 
 .sidebar-button.active {
-  -fx-background-color: #1a237e;
-  -fx-text-fill: #64b5f6;
-  -fx-border-color: #64b5f6;
-  -fx-border-width: 0 3 0 0;
+  -fx-background-color: #00D2FF22;
+  -fx-text-fill: #00D2FF;
+  -fx-font-weight: bold;
 }
 
 .content-area {
@@ -151,11 +180,16 @@
 }
 
 .card {
-  -fx-background-color: #2b2b2b;
-  -fx-background-radius: 10px;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+  -fx-background-color: #2B2B3E;
+  -fx-background-radius: 12px;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
   -fx-padding: 20px;
   -fx-min-width: 250;
+}
+
+.card:hover {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 3);
+  -fx-translate-y: -1px;
 }
 
 .card-title {
@@ -168,14 +202,18 @@
 .timer-display {
   -fx-font-size: 48px;
   -fx-font-weight: bold;
-  -fx-text-fill: #64b5f6;
+  -fx-text-fill: #00D2FF;
 }
 
 .progress-bar {
-  -fx-accent: #66bb6a;
+  -fx-accent: linear-gradient(to right, #00D2FF, #B721FF);
   -fx-min-width: 150;
   -fx-pref-width: 200;
   -fx-max-width: 300;
+}
+
+.progress-bar .track {
+  -fx-background-color: #3D3D55;
 }
 
 .task-item {

@@ -1,134 +1,127 @@
-# FocusBuddy - Productivity Assistant
+# FocusBuddy
 
-A comprehensive JavaFX desktop application designed to help students manage their productivity through task management, mood tracking, note-taking, goal setting, and Pomodoro timer functionality.
+FocusBuddy adalah aplikasi produktivitas yang dirancang untuk membantu siswa dan mahasiswa fokus dalam belajar dan mengelola tugas-tugas mereka secara efektif.
 
-## Features
+## Fitur Utama
 
-### 🔐 Security & Authentication
-- Secure user registration and login
-- Password hashing with salt
-- Input validation and sanitization
-- SQL injection protection
+- 📊 **Dashboard** - Tampilan ringkas aktivitas dan progres
+- ✅ **Manajemen Tugas** - Kelola tugas dengan prioritas dan tenggat waktu
+- 🍅 **Timer Pomodoro** - Teknik fokus dengan interval kerja dan istirahat
+- 📝 **Catatan** - Buat dan kelola catatan pelajaran
+- 📚 **Mata Pelajaran** - Organisasi tugas dan catatan berdasarkan mata pelajaran
+- 👤 **Profil & Pengaturan** - Kustomisasi pengalaman pengguna
 
-### ✅ Task Management
-- Create, edit, and delete tasks
-- Priority levels (High, Medium, Low)
-- Status tracking (Pending, In Progress, Completed)
-- Due date management
-- Advanced filtering and sorting
-- Search functionality
+## Teknologi
 
-### 🍅 Pomodoro Timer
-- 25-minute focus sessions
-- 5-minute break intervals
-- Visual progress tracking
-- Timer notifications
-- Session statistics
+- Java 17
+- JavaFX untuk antarmuka pengguna
+- SQLite untuk penyimpanan data
+- Maven untuk manajemen proyek
+- SLF4J & Logback untuk logging
+- JUnit 5 untuk testing
 
-### 😊 Mood Tracker
-- Daily mood logging (1-5 scale)
-- Mood history with visual charts
-- Streak tracking
-- Mood statistics and trends
+## Persyaratan Sistem
 
-### 📝 Smart Notes
-- Rich text editor with HTML support
-- Text formatting (Bold, Italic, Highlight)
-- Decorator pattern implementation
-- Search and tagging system
-- Auto-save functionality
+- Java Development Kit (JDK) 17 atau lebih baru
+- Maven 3.6.0 atau lebih baru
+- Ruang disk minimal 100MB
+- RAM minimal 2GB
 
-### 🎯 Goals Tracker
-- Multiple goal types (Study Hours, Focus Sessions, Tasks)
-- Progress tracking with visual indicators
-- Achievement system with badges
-- Goal statistics and completion tracking
+## Instalasi
 
-### 💾 Export & Backup
-- CSV export for all data types
-- Database backup functionality
-- Summary reports generation
-- Async operations with progress tracking
+1. Clone repositori ini:
+```bash
+git clone https://github.com/yourusername/focus-buddy.git
+cd focus-buddy
+```
 
-### 🎨 UI/UX
-- Modern, responsive design
-- Dark/Light theme toggle
-- Professional styling
-- Smooth animations
-- Intuitive navigation
+2. Build proyek dengan Maven:
+```bash
+mvn clean install
+```
 
-## Technical Architecture
+3. Jalankan aplikasi:
+```bash
+mvn javafx:run
+```
 
-### Design Patterns
-- **Singleton**: UserSession, DatabaseManager, ThemeManager, NotificationManager
-- **Factory**: User creation system
-- **Observer**: Timer events, Goal completion notifications
-- **Decorator**: Note formatting system
-- **Abstract Classes**: User, Goal with concrete implementations
+## Penggunaan
 
-### Technologies Used
-- **JavaFX 17**: UI framework
-- **MySQL 8.0**: Database
-- **Maven**: Build management
-- **JUnit 5**: Unit testing
-- **CSS**: Styling
+1. **Login/Register**
+   - Buat akun baru atau login dengan akun yang sudah ada
+   - Pilih "Ingat Saya" untuk login otomatis
 
-## Installation
+2. **Dashboard**
+   - Lihat ringkasan tugas hari ini
+   - Monitor waktu fokus
+   - Akses cepat ke fitur utama
 
-### Prerequisites
-- Java 11 or higher
-- MySQL 8.0 or higher
-- Maven 3.6 or higher
+3. **Manajemen Tugas**
+   - Tambah, edit, dan hapus tugas
+   - Atur prioritas dan tenggat waktu
+   - Filter dan urutkan tugas
 
-### Setup
-1. Clone the repository
-2. Install MySQL and create a database named `focusbuddy`
-3. Update database credentials in `DatabaseManager.java` if needed
-4. Run `mvn clean install` to build the project
-5. Run `mvn javafx:run` to start the application
+4. **Timer Pomodoro**
+   - Set durasi fokus (default: 25 menit)
+   - Set durasi istirahat (default: 5 menit)
+   - Notifikasi otomatis saat sesi berakhir
 
-### Default Login
-- Username: `demo`
-- Password: `demo123`
+5. **Catatan**
+   - Buat catatan dengan format rich text
+   - Organisasi catatan per mata pelajaran
+   - Fitur pencarian dan filter
 
-## Database Schema
+6. **Pengaturan**
+   - Pilih tema (Terang/Gelap)
+   - Atur preferensi notifikasi
+   - Kustomisasi timer Pomodoro
 
-The application automatically creates the following tables:
-- `users` - User accounts and authentication
-- `tasks` - Task management data
-- `mood_entries` - Daily mood tracking
-- `notes` - User notes and content
-- `goals` - Goal tracking and progress
-- `focus_sessions` - Pomodoro timer sessions
-- `migrations` - Database version control
+## Pengembangan
 
-## Configuration
+### Struktur Proyek
 
-The application uses `focusbuddy.properties` for configuration:
-- Database connection settings
-- Timer durations
-- Theme preferences
-- Notification settings
+```
+focus-buddy/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── focusbuddy/
+│   │   │           ├── controllers/
+│   │   │           ├── models/
+│   │   │           ├── services/
+│   │   │           └── utils/
+│   │   └── resources/
+│   │       ├── css/
+│   │       ├── fxml/
+│   │       └── images/
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── focusbuddy/
+└── pom.xml
+```
 
-## Testing
+### Panduan Kontribusi
 
-Run unit tests with:
-\`\`\`bash
-mvn test
-\`\`\`
+1. Fork repositori
+2. Buat branch fitur (`git checkout -b feature/AmazingFeature`)
+3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request
 
-## Contributing
+## Lisensi
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
-## License
+## Kontak
 
-This project is licensed under the MIT License.
+- Email: your.email@example.com
+- Project Link: https://github.com/yourusername/focus-buddy
 
-## Support
+## Ucapan Terima Kasih
 
-For support or questions, please create an issue in the repository.
+- [JavaFX](https://openjfx.io/)
+- [SQLite](https://www.sqlite.org/)
+- [Font Awesome](https://fontawesome.com/)
+- [Google Fonts](https://fonts.google.com/)

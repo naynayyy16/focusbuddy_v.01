@@ -219,7 +219,7 @@ public class LoginController {
 
     private void navigateToMainDashboard() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/new_dashboard.fxml"));
 
             Stage stage = (Stage) loginButton.getScene().getWindow();
 
@@ -234,7 +234,7 @@ public class LoginController {
 
             // Set scene
             stage.setScene(scene);
-            stage.setTitle("FocusBuddy - Dashboard");
+            stage.setTitle("FocusBuddy");
 
             // Make window maximized and resizable
             stage.setMaximized(true);

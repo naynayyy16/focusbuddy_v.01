@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,8 +37,7 @@ public class DashboardController {
     @FXML private Button pomodoroBtn;
     @FXML private Button moodBtn;
     @FXML private Button notesBtn;
-    @FXML private Button goalsBtn;
-    @FXML private Button exportBtn;
+    @FXML private Button profileBtn;
 
     // Dashboard content (these will be null when other views are loaded)
     @FXML private Label timerDisplay;
@@ -55,38 +56,64 @@ public class DashboardController {
 
     @FXML
     private void initialize() {
-        // Initialize services
-        taskService = new TaskService();
-        pomodoroTimer = new PomodoroTimer();
+        try {
+            // Initialize services
+            taskService = new TaskService();
+            pomodoroTimer = new PomodoroTimer();
 
-        // Set welcome message
-        if (UserSession.getInstance().isLoggedIn()) {
-            welcomeLabel.setText("Welcome back, " +
-                    UserSession.getInstance().getCurrentUser().getUsername() + "!");
+            // Set welcome message
+            if (UserSession.getInstance().isLoggedIn()) {
+                welcomeLabel.setText("Selamat datang kembali, " +
+                        UserSession.getInstance().getCurrentUser().getUsername() + "!");
+            }
+
+            // Store original dashboard content
+            if (contentArea.getChildren().size() > 0) {
+                dashboardContent = contentArea.getChildren().get(0);
+            }
+
+            // Set up icons for navigation buttons
+            setupIcons();
+
+            // Set up navigation
+            setupNavigation();
+
+            // Set up theme toggle
+            setupThemeToggle();
+
+            // Set up timer (only if dashboard elements exist)
+            if (timerDisplay != null) {
+                setupPomodoroTimer();
+                loadDashboardData();
+            }
+
+            // Set up logout
+            logoutButton.setOnAction(e -> handleLogout());
+
+            // Setup responsive layout
+            setupResponsiveLayout();
+
+        } catch (Exception e) {
+            ErrorHandler.log("Error initializing dashboard", e);
+            NotificationManager.getInstance().showError("Gagal memuat dashboard");
         }
+    }
 
-        // Store original dashboard content
-        if (contentArea.getChildren().size() > 0) {
-            dashboardContent = contentArea.getChildren().get(0);
-        }
-
-        // Set up navigation
-        setupNavigation();
-
-        // Set up theme toggle
-        setupThemeToggle();
-
-        // Set up timer (only if dashboard elements exist)
-        if (timerDisplay != null) {
-            setupPomodoroTimer();
-            loadDashboardData();
-        }
-
-        // Set up logout
-        logoutButton.setOnAction(e -> handleLogout());
-
-        // Setup responsive layout
-        setupResponsiveLayout();
+    private void setupIcons() {
+        IconManager iconManager = IconManager.getInstance();
+        
+        // Add icons to navigation buttons
+        dashboardBtn.setGraphic(iconManager.getDashboardIcon());
+        tasksBtn.setGraphic(iconManager.getTasksIcon());
+        pomodoroBtn.setGraphic(iconManager.getPomodoroIcon());
+        notesBtn.setGraphic(iconManager.getNotesIcon());
+        profileBtn.setGraphic(iconManager.getProfileIcon());
+        
+        // Add icon to logout button
+        logoutButton.setGraphic(iconManager.getLogoutIcon());
+        
+        // Set theme toggle icon
+        themeToggle.setGraphic(iconManager.getThemeIcon());
     }
 
     private void setupResponsiveLayout() {
@@ -122,16 +149,31 @@ public class DashboardController {
     }
 
     private void setupNavigation() {
-        dashboardBtn.setOnAction(e -> showDashboard());
-        tasksBtn.setOnAction(e -> showTasks());
-        pomodoroBtn.setOnAction(e -> showPomodoro());
-        // moodBtn.setOnAction(e -> showMoodTracker());
-        notesBtn.setOnAction(e -> showNotes());
-        // goalsBtn.setOnAction(e -> showGoals());
-        // exportBtn.setOnAction(e -> showExport());
+        // Setup navigation buttons with error handling
+        setupNavigationButton(dashboardBtn, this::showDashboard, "Dashboard");
+        setupNavigationButton(tasksBtn, this::showTasks, "Tasks");
+        setupNavigationButton(pomodoroBtn, this::showPomodoro, "Pomodoro");
+        setupNavigationButton(notesBtn, this::showNotes, "Notes");
+        setupNavigationButton(profileBtn, this::showProfile, "Profile");
 
         // Set initial active button
         setActiveButton(dashboardBtn);
+        showDashboard(); // Show dashboard initially
+    }
+
+    private void setupNavigationButton(Button button, Runnable action, String pageName) {
+        if (button != null) {
+            button.setOnAction(e -> {
+                try {
+                    action.run();
+                } catch (Exception ex) {
+                    ErrorHandler.log("Error navigating to " + pageName, ex);
+                    NotificationManager.getInstance().showError(
+                        "Gagal membuka halaman " + pageName + ". " + ex.getMessage()
+                    );
+                }
+            });
+        }
     }
 
     private void showNotes() {
@@ -303,10 +345,8 @@ public class DashboardController {
         dashboardBtn.getStyleClass().remove("active");
         tasksBtn.getStyleClass().remove("active");
         pomodoroBtn.getStyleClass().remove("active");
-        if (moodBtn != null) moodBtn.getStyleClass().remove("active");
         notesBtn.getStyleClass().remove("active");
-        if (goalsBtn != null) goalsBtn.getStyleClass().remove("active");
-        if (exportBtn != null) exportBtn.getStyleClass().remove("active");
+        profileBtn.getStyleClass().remove("active");
 
         // Add active class to current button
         activeBtn.getStyleClass().add("active");
@@ -329,10 +369,28 @@ public class DashboardController {
         }
     }
 
-    private void showTasks() {
-        setActiveButton(tasksBtn);
-        currentView = "tasks";
-        loadView("/fxml/tasks.fxml");
+    // Menghapus duplikat method loadView
+
+    private Button getButtonForView(String fxmlPath) {
+        return switch (fxmlPath) {
+            case "/fxml/dashboard.fxml" -> dashboardBtn;
+            case "/fxml/new_tasks.fxml" -> tasksBtn;
+            case "/fxml/notes.fxml" -> notesBtn;
+            case "/fxml/subject.fxml" -> subjectBtn;
+            case "/fxml/profile_settings.fxml" -> profileBtn;
+            default -> null;
+        };
+    }
+
+    private String getViewName(String fxmlPath) {
+        return switch (fxmlPath) {
+            case "/fxml/dashboard.fxml" -> "dashboard";
+            case "/fxml/new_tasks.fxml" -> "tasks";
+            case "/fxml/notes.fxml" -> "notes";
+            case "/fxml/subject.fxml" -> "subject";
+            case "/fxml/profile_settings.fxml" -> "profile";
+            default -> "";
+        };
     }
 
     private void showPomodoro() {
@@ -341,40 +399,37 @@ public class DashboardController {
         showDashboard(); // Pomodoro is part of dashboard
     }
 
-    /*
-    private void showMoodTracker() {
-        setActiveButton(moodBtn);
-        currentView = "mood";
-        loadView("/fxml/mood-tracker.fxml");
+    private void showProfile() {
+        setActiveButton(profileBtn);
+        currentView = "profile";
+        loadView("/fxml/profile_settings.fxml");
     }
-
-    private void showGoals() {
-        setActiveButton(goalsBtn);
-        currentView = "goals";
-        loadView("/fxml/goals.fxml");
-    }
-
-    private void showExport() {
-        setActiveButton(exportBtn);
-        currentView = "export";
-        loadView("/fxml/export.fxml");
-    }
-    */
 
     private void loadView(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Node view = loader.load();
 
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(view);
+            // Animate transition
+            FadeTransition fadeOut = new FadeTransition(Duration.millis(150), contentArea);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(e -> {
+                contentArea.getChildren().clear();
+                contentArea.getChildren().add(view);
+
+                // Fade in new content
+                FadeTransition fadeIn = new FadeTransition(Duration.millis(150), contentArea);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+            fadeOut.play();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            NotificationManager.getInstance().showNotification(
-                    "Error",
-                    "Failed to load view: " + e.getMessage(),
-                    NotificationManager.NotificationType.ERROR
+            ErrorHandler.log("Failed to load view: " + fxmlPath, e);
+            NotificationManager.getInstance().showError(
+                "Gagal memuat halaman. Silakan coba lagi."
             );
         }
     }
@@ -421,7 +476,8 @@ public class DashboardController {
             stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            ErrorHandler.log("Error during logout", e);
+            NotificationManager.getInstance().showError("Gagal melakukan logout. Silakan coba lagi.");
         }
     }
 }
