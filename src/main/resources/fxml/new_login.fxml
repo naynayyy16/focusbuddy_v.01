@@ -5,72 +5,63 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane xmlns="http://javafx.com/javafx/11.0.1" 
-           xmlns:fx="http://javafx.com/fxml/1" 
-           fx:controller="com.focusbuddy.controllers.NewLoginController"
-           styleClass="login-background">
+<StackPane styleClass="login-background" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.NewLoginController">
            
-    <VBox fx:id="loginContainer" styleClass="login-container" maxWidth="400" spacing="20">
+    <VBox fx:id="loginContainer" maxWidth="400" spacing="20" styleClass="login-container">
         <padding>
-            <Insets top="30" right="40" bottom="30" left="40"/>
+            <Insets bottom="30" left="40" right="40" top="30" />
         </padding>
         
         <!-- Header -->
         <VBox alignment="CENTER" spacing="10">
-            <Label text="FocusBuddy" styleClass="app-title">
+            <Label styleClass="app-title" text="FocusBuddy">
                 <font>
-                    <Font name="System Bold" size="36.0"/>
+                    <Font name="System Bold" size="36.0" />
                 </font>
             </Label>
-            <Label text="Asisten Produktivitas Anda" styleClass="app-subtitle"/>
+            <Label styleClass="app-subtitle" text="Asisten Produktivitas Anda" />
         </VBox>
         
         <!-- Theme Toggle -->
         <HBox alignment="CENTER_RIGHT">
-            <ToggleButton fx:id="themeToggle" styleClass="theme-toggle"/>
+            <ToggleButton fx:id="themeToggle" prefHeight="25.0" prefWidth="37.0" styleClass="theme-toggle" />
         </HBox>
         
         <!-- Login Form -->
         <VBox spacing="15" styleClass="form-container">
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
             
             <!-- Username Field -->
             <VBox spacing="5">
-                <Label text="Nama Pengguna" styleClass="field-label"/>
-                <TextField fx:id="usernameField" styleClass="custom-text-field"/>
+                <Label styleClass="field-label" text="Nama Pengguna" />
+                <TextField fx:id="usernameField" styleClass="custom-text-field" />
             </VBox>
             
             <!-- Password Field -->
             <VBox spacing="5">
-                <Label text="Kata Sandi" styleClass="field-label"/>
-                <PasswordField fx:id="passwordField" styleClass="custom-text-field"/>
+                <Label styleClass="field-label" text="Kata Sandi" />
+                <PasswordField fx:id="passwordField" styleClass="custom-text-field" />
             </VBox>
             
             <!-- Remember Me -->
-            <CheckBox fx:id="rememberMeCheckbox" text="Ingat Saya" 
-                     styleClass="remember-me-checkbox" selected="false"/>
+            <CheckBox fx:id="rememberMeCheckbox" selected="false" styleClass="remember-me-checkbox" text="Ingat Saya" />
             
             <!-- Status Message -->
-            <Label fx:id="statusLabel" styleClass="status-label" 
-                   wrapText="true" alignment="CENTER"/>
+            <Label fx:id="statusLabel" alignment="CENTER" styleClass="status-label" wrapText="true" />
             
             <!-- Buttons -->
-            <VBox spacing="10" alignment="CENTER">
-                <Button fx:id="loginButton" text="Masuk" 
-                        styleClass="primary-button" onAction="#handleLogin" 
-                        maxWidth="Infinity"/>
-                <Button fx:id="registerButton" text="Daftar" 
-                        styleClass="secondary-button" onAction="#handleRegister" 
-                        maxWidth="Infinity"/>
+            <VBox alignment="CENTER" spacing="10">
+                <Button fx:id="loginButton" maxWidth="Infinity" onAction="#handleLogin" styleClass="primary-button" text="Masuk" />
+                <Button fx:id="registerButton" maxWidth="Infinity" onAction="#handleRegister" styleClass="secondary-button" text="Daftar" />
             </VBox>
         </VBox>
         
         <!-- Footer -->
         <VBox alignment="CENTER" spacing="5">
-            <Label text="© 2024 FocusBuddy" styleClass="copyright-text"/>
-            <Label text="Versi 1.0.0" styleClass="version-text"/>
+            <Label styleClass="copyright-text" text="© 2024 FocusBuddy" />
+            <Label styleClass="version-text" text="Versi 1.0.0" />
         </VBox>
     </VBox>
     

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.web.HTMLEditor?>
+<?import javafx.scene.web.*?>
 
-<HBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.notes.NotesController">
+<HBox spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.notes.NotesController">
    <children>
       <!-- Left Panel - Notes List -->
-      <VBox styleClass="card" spacing="15.0" prefWidth="300.0">
+      <VBox prefWidth="300.0" spacing="15.0" styleClass="card">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
@@ -39,7 +39,7 @@
       <VBox fx:id="notesContainer" spacing="15.0" HBox.hgrow="ALWAYS">
          <children>
             <!-- Note Header -->
-            <VBox styleClass="card" spacing="10.0">
+            <VBox spacing="10.0" styleClass="card">
                <children>
                   <TextField fx:id="noteTitleField" promptText="Note title..." styleClass="custom-text-field">
                      <font>
@@ -52,20 +52,8 @@
                   <ComboBox fx:id="subjectComboBox" promptText="Select Subject" styleClass="custom-text-field" />
                   
                   <!-- Formatting Toolbar -->
-                  <HBox spacing="10.0" alignment="CENTER_LEFT">
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <Button fx:id="boldButton" styleClass="secondary-button" text="B">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="italicButton" styleClass="secondary-button" text="I">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Button>
-                        <ColorPicker fx:id="highlightColorPicker" />
-                        <Button fx:id="highlightButton" styleClass="secondary-button" text="Highlight" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button fx:id="saveNoteButton" styleClass="primary-button" text="Save Note" />
                      </children>
