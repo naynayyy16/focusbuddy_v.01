@@ -1,121 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<HBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.tasks.TasksController">
-   <children>
-      <!-- Left Panel - Task List with Filters -->
-      <VBox styleClass="card" spacing="15.0" prefWidth="500.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <children>
-                  <Label styleClass="card-title" text="Tasks">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="newTaskButton" styleClass="primary-button" text="+ New Task" />
-               </children>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.focusbuddy.controllers.tasks.NewTasksController">
+    
+    <top>
+        <VBox spacing="15" styleClass="page-header">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+            
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="Daftar Tugas" styleClass="page-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="newTaskButton" text="+ Tambah Tugas" styleClass="primary-button"/>
+            </HBox>
+            
+            <!-- Filter Bar -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="searchField" promptText="Cari tugas..." HBox.hgrow="ALWAYS"/>
+                <ComboBox fx:id="filterPriorityCombo" styleClass="filter-combo"/>
+                <ComboBox fx:id="filterStatusCombo" styleClass="filter-combo"/>
+                <ComboBox fx:id="sortCombo" styleClass="filter-combo"/>
+                <CheckBox fx:id="showCompletedCheckBox" text="Tampilkan yang selesai" selected="true"/>
             </HBox>
             
             <!-- Statistics -->
-            <HBox spacing="20.0" style="-fx-background-color: #f8f9fa; -fx-padding: 10; -fx-background-radius: 5;">
-               <children>
-                  <Label fx:id="totalTasksLabel" text="Total: 0" />
-                  <Label fx:id="pendingTasksLabel" text="Pending: 0" />
-                  <Label fx:id="completedTasksLabel" text="Completed: 0" />
-                  <Label fx:id="overdueTasksLabel" text="Overdue: 0" />
-               </children>
+            <HBox spacing="20" styleClass="statistics-bar">
+                <Label fx:id="totalTasksLabel" styleClass="stat-label"/>
+                <Label fx:id="pendingTasksLabel" styleClass="stat-label"/>
+                <Label fx:id="completedTasksLabel" styleClass="stat-label"/>
+                <Label fx:id="overdueTasksLabel" styleClass="stat-label"/>
             </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <SplitPane dividerPositions="0.7" styleClass="content-split">
+            <!-- Tasks List -->
+            <ScrollPane fitToWidth="true" styleClass="tasks-scroll">
+                <VBox fx:id="tasksList" spacing="10" styleClass="tasks-container">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                </VBox>
+            </ScrollPane>
             
-            <!-- Filters -->
-            <VBox spacing="10.0">
-               <children>
-                  <TextField fx:id="searchField" promptText="Search tasks..." />
-                  
-                  <HBox spacing="10.0">
-                     <children>
-                        <ComboBox fx:id="filterPriorityCombo" promptText="Priority" prefWidth="120.0" />
-                        <ComboBox fx:id="filterStatusCombo" promptText="Status" prefWidth="120.0" />
-                        <ComboBox fx:id="sortCombo" promptText="Sort by" prefWidth="150.0" />
-                     </children>
-                  </HBox>
-                  
-                  <CheckBox fx:id="showCompletedCheckBox" text="Show completed tasks" />
-               </children>
+            <!-- Task Form -->
+            <VBox spacing="15" styleClass="task-form">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                
+                <Label text="Detail Tugas" styleClass="section-title"/>
+                
+                <Label text="Judul" styleClass="field-label"/>
+                <TextField fx:id="taskTitleField"/>
+                
+                <Label text="Deskripsi" styleClass="field-label"/>
+                <TextArea fx:id="taskDescriptionArea" wrapText="true" prefRowCount="4"/>
+                
+                <Label text="Mata Pelajaran" styleClass="field-label"/>
+                <ComboBox fx:id="subjectComboBox" maxWidth="Infinity"/>
+                
+                <Label text="Prioritas" styleClass="field-label"/>
+                <ComboBox fx:id="priorityCombo" maxWidth="Infinity"/>
+                
+                <Label text="Status" styleClass="field-label"/>
+                <ComboBox fx:id="statusCombo" maxWidth="Infinity"/>
+                
+                <Label text="Tenggat Waktu" styleClass="field-label"/>
+                <DatePicker fx:id="dueDatePicker" maxWidth="Infinity"/>
+                
+                <Region VBox.vgrow="ALWAYS"/>
+                
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button fx:id="deleteTaskButton" text="Hapus" styleClass="danger-button"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="saveTaskButton" text="Simpan" styleClass="primary-button"/>
+                </HBox>
             </VBox>
-            
-            <ListView fx:id="tasksList" prefHeight="400.0" />
-            
-            <HBox spacing="10.0">
-               <children>
-                  <Button fx:id="deleteTaskButton" styleClass="secondary-button" text="Delete" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      
-      <!-- Right Panel - Task Editor -->
-      <VBox fx:id="tasksContainer" styleClass="card" spacing="15.0" HBox.hgrow="ALWAYS">
-         <children>
-            <Label styleClass="card-title" text="Task Details">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            
-            <VBox spacing="15.0">
-               <children>
-                  <VBox spacing="5.0">
-                     <children>
-                        <Label text="Task Title:" />
-                        <TextField fx:id="taskTitleField" promptText="Enter task title..." />
-                     </children>
-                  </VBox>
-                  
-                  <VBox spacing="5.0">
-                     <children>
-                        <Label text="Description:" />
-                        <TextArea fx:id="taskDescriptionArea" prefRowCount="4" promptText="Describe the task..." />
-                     </children>
-                  </VBox>
-                  
-                  <HBox spacing="15.0">
-                     <children>
-                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label text="Priority:" />
-                              <ComboBox fx:id="priorityCombo" maxWidth="1.7976931348623157E308" />
-                           </children>
-                        </VBox>
-                        
-                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label text="Status:" />
-                              <ComboBox fx:id="statusCombo" maxWidth="1.7976931348623157E308" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  
-                  <VBox spacing="5.0">
-                     <children>
-                        <Label text="Due Date:" />
-                        <DatePicker fx:id="dueDatePicker" />
-                     </children>
-                  </VBox>
-                  
-                  <Button fx:id="saveTaskButton" styleClass="primary-button" text="Save Task" />
-               </children>
-            </VBox>
-         </children>
-      </VBox>
-   </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</HBox>
+        </SplitPane>
+    </center>
+    
+</BorderPane>

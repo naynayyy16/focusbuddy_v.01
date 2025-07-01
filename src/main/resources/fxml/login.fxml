@@ -7,7 +7,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.auth.LoginController">
    <center>
-      <VBox fx:id="loginContainer" alignment="CENTER" maxWidth="400.0" spacing="20.0" styleClass="login-container">
+      <VBox fx:id="mainContainer" alignment="CENTER" maxWidth="400.0" spacing="20.0" styleClass="login-container">
          <children>
             <VBox alignment="CENTER" spacing="10.0">
                <children>
@@ -24,7 +24,8 @@
                </children>
             </VBox>
             
-            <VBox spacing="15.0" styleClass="form-container">
+            <!-- Login Form -->
+            <VBox fx:id="loginForm" spacing="15.0" styleClass="form-container">
                <children>
                   <VBox spacing="5.0">
                      <children>
@@ -40,27 +41,56 @@
                      </children>
                   </VBox>
                   
-                  <Label fx:id="statusLabel" styleClass="status-label" />
+                  <Label fx:id="loginStatusLabel" styleClass="status-label" />
                   
-                  <VBox spacing="10.0">
-                     <Button fx:id="loginButton" styleClass="primary-button" text="Login" maxWidth="Infinity" />
-                     <HBox alignment="CENTER">
-                        <Label text="Belum punya akun? " />
-                        <Hyperlink fx:id="registerLink" text="Daftar di sini" onAction="#showRegisterForm" />
-                     </HBox>
-                  </VBox>
+                  <Button fx:id="loginButton" styleClass="primary-button" text="Login" maxWidth="Infinity" />
+                  
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label text="Don't have an account? " />
+                        <Hyperlink fx:id="showRegisterLink" text="Register here" onAction="#showRegisterForm" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+               </padding>
+            </VBox>
 
-                  <!-- Form Registrasi -->
-                  <VBox fx:id="registerForm" spacing="10.0" visible="false" managed="false">
-                     <TextField fx:id="regUsernameField" promptText="Username" />
-                     <PasswordField fx:id="regPasswordField" promptText="Password" />
-                     <TextField fx:id="regEmailField" promptText="Email" />
-                     <Button fx:id="regSubmitButton" styleClass="primary-button" text="Daftar" maxWidth="Infinity" />
-                     <HBox alignment="CENTER">
-                        <Label text="Sudah punya akun? " />
-                        <Hyperlink fx:id="loginLink" text="Login di sini" onAction="#showLoginForm" />
-                     </HBox>
+            <!-- Register Form -->
+            <VBox fx:id="registerForm" spacing="15.0" styleClass="form-container" visible="false" managed="false">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label styleClass="field-label" text="Username" />
+                        <TextField fx:id="regUsernameField" promptText="Choose a username" styleClass="custom-text-field" />
+                     </children>
                   </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label styleClass="field-label" text="Password" />
+                        <PasswordField fx:id="regPasswordField" promptText="Choose a password" styleClass="custom-text-field" />
+                     </children>
+                  </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label styleClass="field-label" text="Email" />
+                        <TextField fx:id="regEmailField" promptText="Enter your email" styleClass="custom-text-field" />
+                     </children>
+                  </VBox>
+                  
+                  <Label fx:id="registerStatusLabel" styleClass="status-label" />
+                  
+                  <Button fx:id="registerButton" styleClass="primary-button" text="Register" maxWidth="Infinity" />
+                  
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label text="Already have an account? " />
+                        <Hyperlink fx:id="showLoginLink" text="Login here" onAction="#showLoginForm" />
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />

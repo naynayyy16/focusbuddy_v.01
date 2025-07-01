@@ -25,8 +25,11 @@ public class FocusBuddyApp extends Application {
             // Initialize configuration
             ConfigManager.getInstance();
 
+            // Migrate old passwords if needed
+            com.focusbuddy.utils.DatabaseMigration.migratePasswords();
+
             // Load login scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/new_login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
             Scene scene = new Scene(loader.load());
 
             // Apply theme

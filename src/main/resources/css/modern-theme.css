@@ -1,0 +1,161 @@
+/* Modern Theme for FocusBuddy */
+
+/* Color Variables */
+* {
+    -fx-primary: #2D3436;
+    -fx-secondary: #636E72;
+    -fx-primary-light: #DFE6E9;
+    -fx-accent: #0984E3;
+    -fx-danger: #D63031;
+    -fx-success: #00B894;
+    -fx-warning: #FDCB6E;
+    -fx-background: #FFFFFF;
+    -fx-card-background: #F5F6FA;
+}
+
+/* General Styles */
+.root {
+    -fx-background-color: -fx-background;
+    -fx-font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+/* Cards */
+.card {
+    -fx-background-color: -fx-card-background;
+    -fx-background-radius: 10px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 5);
+}
+
+/* Buttons */
+.primary-button {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.primary-button:hover {
+    -fx-background-color: derive(-fx-accent, 10%);
+}
+
+.danger-button {
+    -fx-background-color: -fx-danger;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-background-color: derive(-fx-danger, 10%);
+}
+
+/* Text Fields */
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #E1E1E1;
+    -fx-border-radius: 5px;
+    -fx-padding: 8 12;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -fx-accent;
+    -fx-effect: dropshadow(gaussian, rgba(9,132,227,0.1), 10, 0, 0, 0);
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-color: #E1E1E1;
+    -fx-border-radius: 5px;
+}
+
+.combo-box:focused {
+    -fx-border-color: -fx-accent;
+}
+
+/* Labels */
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary;
+}
+
+.field-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-secondary;
+}
+
+/* Statistics Bar */
+.statistics-bar {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+    -fx-border-color: #E1E1E1;
+    -fx-border-radius: 5px;
+}
+
+.stat-label {
+    -fx-padding: 5 10;
+    -fx-background-radius: 3px;
+}
+
+/* Task List */
+.tasks-container {
+    -fx-background-color: transparent;
+}
+
+.task-item {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 15px;
+    -fx-border-color: #E1E1E1;
+    -fx-border-radius: 5px;
+}
+
+/* Split Pane */
+.content-split {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.content-split .split-pane-divider {
+    -fx-background-color: #E1E1E1;
+    -fx-padding: 0 1 0 1;
+}
+
+/* Scroll Pane */
+.tasks-scroll {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* Form Container */
+.form-container {
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
+
+/* Status Labels */
+.status-success {
+    -fx-text-fill: -fx-success;
+}
+
+.status-error {
+    -fx-text-fill: -fx-danger;
+}
+
+.status-warning {
+    -fx-text-fill: -fx-warning;
+}
