@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.focusbuddy.controllers.pomodoro.PomodoroTimerController"
+      styleClass="pomodoro-timer-container">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30"/>
+    </padding>
+
+    <!-- Timer Display -->
+    <VBox alignment="CENTER" spacing="15">
+        <Label fx:id="timerLabel" styleClass="timer-display">
+            <font>
+                <Font name="System Bold" size="48.0"/>
+            </font>
+        </Label>
+        <ProgressBar fx:id="timerProgress" prefWidth="300" progress="0.0"/>
+    </VBox>
+
+    <!-- Timer Controls -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="startButton" text="Start" styleClass="primary-button"/>
+        <Button fx:id="pauseButton" text="Pause" styleClass="secondary-button"/>
+        <Button fx:id="resetButton" text="Reset" styleClass="secondary-button"/>
+    </HBox>
+
+    <!-- Timer Settings -->
+    <VBox spacing="15" styleClass="settings-container">
+        <Label text="Timer Settings" styleClass="section-title">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+
+        <GridPane hgap="10" vgap="10">
+            <Label text="Focus Duration:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Spinner fx:id="focusDurationSpinner" 
+                    min="1" max="60" initialValue="25"
+                    GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="minutes" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+
+            <Label text="Break Duration:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Spinner fx:id="breakDurationSpinner"
+                    min="1" max="30" initialValue="5"
+                    GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="minutes" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        </GridPane>
+
+        <CheckBox fx:id="autoStartBreakCheckBox" text="Auto-start breaks"/>
+        <CheckBox fx:id="notificationsCheckBox" text="Show notifications" selected="true"/>
+    </VBox>
+
+    <!-- Session Info -->
+    <VBox spacing="10" styleClass="session-info">
+        <Label text="Current Session" styleClass="section-title">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+        </Label>
+        <Label fx:id="sessionTypeLabel" text="Focus Time"/>
+        <Label fx:id="sessionCountLabel" text="Session #1"/>
+        <Label fx:id="totalFocusTimeLabel" text="Total Focus Time: 0h 0m"/>
+    </VBox>
+
+</VBox>

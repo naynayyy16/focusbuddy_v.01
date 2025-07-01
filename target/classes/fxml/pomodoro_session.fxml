@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.focusbuddy.controllers.pomodoro.PomodoroSessionController"
+      styleClass="pomodoro-container">
+    
+    <padding>
+        <Insets top="20" right="30" bottom="20" left="30"/>
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="Pomodoro Sessions" styleClass="page-title">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+    </HBox>
+
+    <!-- Timer Controls -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="startSessionButton" text="Start" styleClass="primary-button"/>
+        <Button fx:id="pauseSessionButton" text="Pause" styleClass="secondary-button"/>
+        <Button fx:id="endSessionButton" text="End" styleClass="secondary-button"/>
+    </HBox>
+
+    <!-- Sessions List -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS">
+        <Label text="Session History" styleClass="section-title">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+        <ListView fx:id="sessionListView" VBox.vgrow="ALWAYS"/>
+    </VBox>
+
+</VBox>

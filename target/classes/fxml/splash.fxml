@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          prefWidth="600" prefHeight="400"
+          style="-fx-background-color: linear-gradient(to bottom right, #3498db, #2980b9);">
+    
+    <VBox fx:id="mainContainer" alignment="CENTER" spacing="20" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 20;">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <ImageView fitWidth="200" fitHeight="200" preserveRatio="true">
+            <Image url="@../images/icon.png"/>
+        </ImageView>
+        
+        <Label text="FocusBuddy" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        
+        <ProgressIndicator/>
+        
+        <Label fx:id="statusLabel" text="Memuat..." style="-fx-font-size: 14px;"/>
+    </VBox>
+    
+</StackPane>

@@ -9,6 +9,9 @@ import java.util.logging.SimpleFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import com.focusbuddy.utils.notification.*;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class ErrorHandler {
     private static final Logger LOGGER = Logger.getLogger(ErrorHandler.class.getName());
@@ -91,5 +94,15 @@ public class ErrorHandler {
         if (fileHandler != null) {
             fileHandler.close();
         }
+    }
+
+    public static void showError(String title, String header, String content) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(header);
+            alert.setContentText(content);
+            alert.showAndWait();
+        });
     }
 }
