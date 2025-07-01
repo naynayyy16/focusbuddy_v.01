@@ -42,12 +42,25 @@
                   
                   <Label fx:id="statusLabel" styleClass="status-label" />
                   
-                  <HBox spacing="10.0">
-                     <children>
-                        <Button fx:id="loginButton" styleClass="primary-button" text="Login" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="registerButton" styleClass="secondary-button" text="Register" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
+                  <VBox spacing="10.0">
+                     <Button fx:id="loginButton" styleClass="primary-button" text="Login" maxWidth="Infinity" />
+                     <HBox alignment="CENTER">
+                        <Label text="Belum punya akun? " />
+                        <Hyperlink fx:id="registerLink" text="Daftar di sini" onAction="#showRegisterForm" />
+                     </HBox>
+                  </VBox>
+
+                  <!-- Form Registrasi -->
+                  <VBox fx:id="registerForm" spacing="10.0" visible="false" managed="false">
+                     <TextField fx:id="regUsernameField" promptText="Username" />
+                     <PasswordField fx:id="regPasswordField" promptText="Password" />
+                     <TextField fx:id="regEmailField" promptText="Email" />
+                     <Button fx:id="regSubmitButton" styleClass="primary-button" text="Daftar" maxWidth="Infinity" />
+                     <HBox alignment="CENTER">
+                        <Label text="Sudah punya akun? " />
+                        <Hyperlink fx:id="loginLink" text="Login di sini" onAction="#showLoginForm" />
+                     </HBox>
+                  </VBox>
                </children>
                <padding>
                   <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />

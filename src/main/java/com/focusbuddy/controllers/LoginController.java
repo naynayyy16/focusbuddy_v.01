@@ -26,7 +26,13 @@ public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
-    @FXML private Button registerButton;
+    @FXML private VBox registerForm;
+    @FXML private TextField regUsernameField;
+    @FXML private PasswordField regPasswordField;
+    @FXML private TextField regEmailField;
+    @FXML private Button regSubmitButton;
+    @FXML private Hyperlink registerLink;
+    @FXML private Hyperlink loginLink;
     @FXML private Label statusLabel;
     @FXML private VBox loginContainer;
     @FXML private ToggleButton themeToggle;
@@ -36,9 +42,9 @@ public class LoginController {
         // Set up theme toggle
         themeToggle.setOnAction(e -> toggleTheme());
 
-        // Set up login button action
+        // Set up button actions
         loginButton.setOnAction(e -> handleLogin());
-        registerButton.setOnAction(e -> showRegisterDialog());
+        regSubmitButton.setOnAction(e -> handleRegister());
 
         // Add Enter key listener for login
         passwordField.setOnAction(e -> handleLogin());
@@ -80,29 +86,9 @@ public class LoginController {
 
             if (rs.next()) {
                 String storedPassword = rs.getString("password");
-                String salt = rs.getString("salt");
-
-                // For backward compatibility, check if salt exists
-                boolean passwordValid;
-                if (salt != null) {
-                    passwordValid = PasswordUtils.verifyPassword(password, storedPassword, salt);
-                } else {
-                    // Legacy plain text password check
-                    passwordValid = password.equals(storedPassword);
-
-                    // Upgrade to hashed password
-                    if (passwordValid) {
-                        String newSalt = PasswordUtils.generateSalt();
-                        String hashedPassword = PasswordUtils.hashPassword(password, newSalt);
-
-                        String updateQuery = "UPDATE users SET password = ?, salt = ? WHERE id = ?";
-                        PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
-                        updateStmt.setString(1, hashedPassword);
-                        updateStmt.setString(2, newSalt);
-                        updateStmt.setInt(3, rs.getInt("id"));
-                        updateStmt.executeUpdate();
-                    }
-                }
+                
+                // Untuk sementara, gunakan verifikasi plain text
+                boolean passwordValid = password.equals(storedPassword);
 
                 if (passwordValid) {
                     // Create user object
@@ -131,41 +117,43 @@ public class LoginController {
         }
     }
 
-    private void showRegisterDialog() {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Register New Account");
-        dialog.setHeaderText("Create your FocusBuddy account");
+    @FXML
+    private void showRegisterForm() {
+        registerForm.setVisible(true);
+        registerForm.setManaged(true);
+        loginButton.getParent().setVisible(false);
+        loginButton.getParent().setManaged(false);
+    }
 
-        // Create form fields
-        TextField regUsername = new TextField();
-        regUsername.setPromptText("Username");
+    @FXML
+    private void showLoginForm() {
+        registerForm.setVisible(false);
+        registerForm.setManaged(false);
+        loginButton.getParent().setVisible(true);
+        loginButton.getParent().setManaged(true);
+    }
 
-        PasswordField regPassword = new PasswordField();
-        regPassword.setPromptText("Password");
+    private void handleRegister() {
+        String username = regUsernameField.getText().trim();
+        String password = regPasswordField.getText();
+        String email = regEmailField.getText().trim();
 
-        TextField regEmail = new TextField();
-        regEmail.setPromptText("Email");
+        if (!ValidationUtils.isValidUsername(username)) {
+            showStatus("Username harus 3-20 karakter", false);
+            return;
+        }
 
-        TextField regFullName = new TextField();
-        regFullName.setPromptText("Full Name");
+        if (!ValidationUtils.isValidPassword(password)) {
+            showStatus("Password minimal 6 karakter", false);
+            return;
+        }
 
-        VBox content = new VBox(10);
-        content.getChildren().addAll(
-                new Label("Username:"), regUsername,
-                new Label("Password:"), regPassword,
-                new Label("Email:"), regEmail,
-                new Label("Full Name:"), regFullName
-        );
+        if (!email.isEmpty() && !ValidationUtils.isValidEmail(email)) {
+            showStatus("Format email tidak valid", false);
+            return;
+        }
 
-        dialog.getDialogPane().setContent(content);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        dialog.showAndWait().ifPresent(result -> {
-            if (result == ButtonType.OK) {
-                registerUser(regUsername.getText(), regPassword.getText(),
-                        regEmail.getText(), regFullName.getText());
-            }
-        });
+        registerUser(username, password, email, "");
     }
 
     private void registerUser(String username, String password, String email, String fullName) {

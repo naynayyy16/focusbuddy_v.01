@@ -21,11 +21,13 @@ public class NewFocusBuddyApp extends Application {
             // Initialize database
             DatabaseManager.getInstance().initializeDatabase();
 
+            // Database sudah diinisialisasi, tidak perlu update password
+
             // Initialize configuration
             ConfigManager.getInstance();
 
-            // Load login scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/new_login.fxml"));
+            // Load integrated login scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/new_integrated_login.fxml"));
             Scene scene = new Scene(loader.load());
 
             // Apply theme

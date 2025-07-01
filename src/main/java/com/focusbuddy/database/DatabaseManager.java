@@ -586,13 +586,18 @@ public class DatabaseManager {
     }
 
     private void insertDummyUsers(Connection conn) throws SQLException {
+        // Hash password '123456' dengan SHA-256
+        String defaultPassword = "123456";
+        String salt = "dummySalt123"; // Salt tetap untuk testing
+        String hashedPassword = "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI="; // SHA-256 hash untuk '123456'
+        
         String query = """
             INSERT INTO users (username, email, password, salt, level, total_xp) VALUES
-            ('admin', 'admin@focusbuddy.com', '123456', NULL, 5, 1250),
-            ('johndoe', 'john.doe@example.com', '123456', NULL, 3, 750),
-            ('janesmith', 'jane.smith@example.com', '123456', NULL, 2, 300),
-            ('mikewilson', 'mike.wilson@example.com', '123456', NULL, 4, 980),
-            ('sarahbrown', 'sarah.brown@example.com', '123456', NULL, 1, 150)
+            ('admin', 'admin@focusbuddy.com', ?, ?, 5, 1250),
+            ('johndoe', 'john.doe@example.com', ?, ?, 3, 750),
+            ('janesmith', 'jane.smith@example.com', ?, ?, 2, 300),
+            ('mikewilson', 'mike.wilson@example.com', ?, ?, 4, 980),
+            ('sarahbrown', 'sarah.brown@example.com', ?, ?, 1, 150)
             """;
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
