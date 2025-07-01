@@ -123,17 +123,17 @@ public class DashboardController {
 
     private void setupNavigation() {
         // Setup navigation buttons with error handling and animations
-        dashboardBtn.setOnAction(e -> showDashboard());
-        tasksBtn.setOnAction(e -> loadView("/fxml/new_tasks.fxml"));
+        dashboardBtn.setOnAction(e -> loadView("/fxml/dashboard.fxml"));
+        tasksBtn.setOnAction(e -> loadView("/fxml/tasks.fxml"));
         pomodoroBtn.setOnAction(e -> showPomodoro());
         notesBtn.setOnAction(e -> loadView("/fxml/notes.fxml"));
         subjectBtn.setOnAction(e -> loadView("/fxml/subject.fxml"));
         profileBtn.setOnAction(e -> loadView("/fxml/profile_settings.fxml"));
         editPasswordBtn.setOnAction(e -> showEditPasswordDialog());
 
-        // Set initial active button
+        // Set initial active button and load dashboard
         setActiveButton(dashboardBtn);
-        showDashboard(); // Show dashboard initially
+        loadView("/fxml/dashboard.fxml");
     }
 
     private void loadView(String fxmlPath) {
@@ -320,7 +320,7 @@ public class DashboardController {
     private void showPomodoro() {
         setActiveButton(pomodoroBtn);
         currentView = "pomodoro";
-        showDashboard(); // Pomodoro is part of dashboard
+        loadView("/fxml/pomodoro_session.fxml"); // Alternative file
     }
 
     private void showEditPasswordDialog() {

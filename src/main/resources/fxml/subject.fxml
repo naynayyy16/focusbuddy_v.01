@@ -5,7 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.subjects.SubjectController" spacing="15.0" styleClass="card" padding="20">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.focusbuddy.controllers.subjects.SubjectController" spacing="15.0" styleClass="card">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
     <children>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <children>
@@ -23,7 +26,9 @@
 
         <HBox spacing="10.0">
             <children>
-                <Button fx:id="deleteSubjectButton" styleClass="secondary-button" text="Delete" HBox.hgrow="ALWAYS" />
+                <Button fx:id="deleteSubjectButton" styleClass="secondary-button" text="Delete">
+                    <HBox.hgrow>ALWAYS</HBox.hgrow>
+                </Button>
             </children>
         </HBox>
 

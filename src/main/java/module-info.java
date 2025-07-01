@@ -36,7 +36,7 @@ module com.focusbuddy {
     exports com.focusbuddy.services.pomodoro;
     exports com.focusbuddy.services.subjects;
     exports com.focusbuddy.utils;
-    exports com.focusbuddy.utils.data.*;
+    exports com.focusbuddy.utils.data;
     exports com.focusbuddy.database;
 
     // Remove duplicate export of com.focusbuddy.utils.data
@@ -61,5 +61,4 @@ module com.focusbuddy {
     exports com.focusbuddy.utils.icon;
     exports com.focusbuddy.utils.theme;
     exports com.focusbuddy.utils.security;
-    exports com.focusbuddy.utils.data;
 }
