@@ -51,7 +51,7 @@ public class NewLoginController {
     
     private void setupThemeToggle() {
         // Set initial theme toggle state
-        if (ThemeManager.getInstance().getCurrentTheme() == ThemeManager.Theme.DARK) {
+        if (NewThemeManager.getInstance().getCurrentTheme() == NewThemeManager.Theme.DARK) {
             themeToggle.setText("🌙");
             themeToggle.setSelected(true);
         } else {
@@ -60,8 +60,8 @@ public class NewLoginController {
         }
 
         themeToggle.setOnAction(e -> {
-            ThemeManager.getInstance().toggleTheme(loginContainer.getScene());
-            if (ThemeManager.getInstance().getCurrentTheme() == ThemeManager.Theme.DARK) {
+            NewThemeManager.getInstance().toggleTheme(loginContainer.getScene());
+            if (NewThemeManager.getInstance().getCurrentTheme() == NewThemeManager.Theme.DARK) {
                 themeToggle.setText("🌙");
             } else {
                 themeToggle.setText("☀️");
@@ -147,7 +147,7 @@ public class NewLoginController {
             Scene scene = new Scene(loader.load());
             
             // Apply current theme
-            ThemeManager.getInstance().applyTheme(scene, ThemeManager.getInstance().getCurrentTheme());
+            NewThemeManager.getInstance().applyTheme(scene, NewThemeManager.getInstance().getCurrentTheme());
             
             // Get current stage
             Stage stage = (Stage) loginButton.getScene().getWindow();

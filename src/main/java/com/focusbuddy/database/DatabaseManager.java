@@ -11,6 +11,15 @@ public class DatabaseManager {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
+    static {
+        try {
+            // Register MySQL Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.err.println("MySQL JDBC Driver not found: " + e.getMessage());
+        }
+    }
+
     // Connection pool or single connection for tracking
     private Connection currentConnection;
 
